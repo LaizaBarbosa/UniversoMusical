@@ -1,65 +1,77 @@
 "use strict";
-// Função auxiliar para obter os instrumentos salvos
-function getInstrumentos() {
-    const data = localStorage.getItem("instrumentos");
-    return data ? JSON.parse(data) : [];
+// Classe generica para o crud da interface INSTRUMENTO
+class LocalStorageService {
+    constructor(storageKey) {
+        this.storageKey = storageKey;
+    }
+    getInstrumentos() {
+        const data = localStorage.getItem(this.storageKey);
+        return data ? JSON.parse(data) : [];
+    }
+    salvarInstrumentos(items) {
+        localStorage.setItem(this.storageKey, JSON.stringify(items));
+    }
+    criarInstrumento(item) {
+        const all = this.getInstrumentos();
+        const newItem = Object.assign({ idInstrumento: Date.now() }, item);
+        all.push(newItem);
+        this.salvarInstrumentos(all);
+        this.exibir();
+        console.log(newItem);
+    }
+    atualizarInst(updatedItem) {
+        const all = this.getInstrumentos().map(i => i.idInstrumento === updatedItem.idInstrumento ? updatedItem : i);
+        this.salvarInstrumentos(all);
+    }
+    delete(id) {
+        const all = this.getInstrumentos().filter(i => i.idInstrumento !== id);
+        this.salvarInstrumentos(all);
+    }
+    // Renderizar a lista de instrumentos na tela
+    exibir() {
+        const list = document.getElementById("listaInstrumentos");
+        list.innerHTML = "";
+        this.getInstrumentos().forEach((instrumento) => {
+            const li = document.createElement("li");
+            li.textContent = `${instrumento.nome} (${instrumento.preco})`;
+            list.appendChild(li);
+        });
+    }
 }
-// Salvar a lista de instrumentos no localStorage
-function salvarInstrumentos(itens) {
-    localStorage.setItem("instrumentos", JSON.stringify(itens));
-}
-// Criar um novo instrumento
-function criarInstrumento(instrumento) {
-    const instrumentos = getInstrumentos();
-    const novoInstrumento = Object.assign({ id: Date.now() }, instrumento);
-    instrumentos.push(novoInstrumento);
-    salvarInstrumentos(instrumentos);
-    exibir();
-}
-// Atualizar um usuario existente
-function atualizarInst(instrumento) {
-    const instrumentos = getInstrumentos().map((i) => (i.id === instrumento.id ? instrumento : i));
-    salvarInstrumentos(instrumentos);
-    exibir();
-}
-// Deletar um instrumento
-function deletarInstrumento(id) {
-    const instrumentos = getInstrumentos().filter((i) => i.id !== id);
-    salvarInstrumentos(instrumentos);
-    exibir();
-}
-// Renderizar a lista de instrumentos na tela
-function exibir() {
-    const list = document.getElementById("listaInstrumentos");
-    list.innerHTML = "";
-    getInstrumentos().forEach((instrumento) => {
-        const li = document.createElement("li");
-        li.textContent = `${instrumento.name} (${instrumento.email})`;
-        list.appendChild(li);
+// Variavel generica pra pegar o form
+const form = document.getElementById('form');
+// ===========================================================================================
+// Função para trocar os campos do formulário de acordo com o tipo de instrumento
+function trocarCampos() {
+    var _a;
+    const select = document.getElementById("tipoInstrumento") || null;
+    const opcaoSelecionada = (_a = (select.value || null)) === null || _a === void 0 ? void 0 : _a.trim();
+    const grupos = document.querySelectorAll(".grupo-campos");
+    const campos = document.querySelectorAll(".campo");
+    console.log(campos);
+    grupos.forEach((g) => {
+        g.classList.add("hidden");
+        campos.forEach(c => {
+            c.removeAttribute('required');
+            c.setAttribute('disabled', '');
+        });
     });
-}
-// Preencher o formulario para edição
-function preencherForm(instrumento) {
-    // lembrar mudar os id's de acordo com os campos do formulario
-    document.getElementById("userId").value = instrumento.id.toString();
-    document.getElementById("name").value = instrumento.name;
-    document.getElementById("email").value = instrumento.email;
-}
-// Lidar com envio do formulário
-const form = document.getElementById("userForm");
-form.addEventListener("submit", (e) => {
-    e.preventDefault();
-    // lembrar mudar os id's de acordo com os campos do formulario
-    const id = document.getElementById("userId").value;
-    const name = document.getElementById("name").value;
-    const email = document.getElementById("email").value;
-    if (id) {
-        atualizarInst({ id: Number(id), name, email });
+    const grupo = document.getElementById(`grupo-${opcaoSelecionada}`) || null;
+    if (grupo) {
+        grupo.classList.remove("hidden");
+        campos.forEach(c => {
+            c.removeAttribute('disabled');
+        });
     }
     else {
-        criarInstrumento({ name, email });
+        console.warn(`Nenhum grupo encontrado com id "grupo-${opcaoSelecionada}"`);
     }
-    form.reset();
-    document.getElementById("userId").value = "";
+}
+document.addEventListener("DOMContentLoaded", () => {
+    const select = document.getElementById("tipoInstrumento");
+    if (!select)
+        return;
+    select.addEventListener("change", trocarCampos);
+    // Mostra o grupo inicial caso haja valor por padrão
+    trocarCampos();
 });
-exibir();

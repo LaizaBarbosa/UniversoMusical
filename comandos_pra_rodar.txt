@@ -1,0 +1,2 @@
+npm run build -> se vc mexeu em algum arquivo TS esse comando vai atualizar os arquivos na dist
+npx serve -> cria o servidor pra rodar o projeto

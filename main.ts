@@ -1,83 +1,93 @@
-// Interface do modelo
-interface Instrumento {
-    // colocar os campos restantes
-  id: number;
-  name: string;
-  email: string;
-}
+// Classe generica para o crud da interface INSTRUMENTO
+class LocalStorageService<I extends Instrumento> {
+  constructor(private storageKey: string) {}
 
-// Função auxiliar para obter os instrumentos salvos
-function getInstrumentos(): Instrumento[] {
-  const data = localStorage.getItem("instrumentos");
-  return data ? JSON.parse(data) : [];
-}
+  getInstrumentos(): I[] {
+    const data = localStorage.getItem(this.storageKey);
+    return data ? JSON.parse(data) : [];
 
-// Salvar a lista de instrumentos no localStorage
-function salvarInstrumentos(itens: Instrumento[]): void {
-  localStorage.setItem("instrumentos", JSON.stringify(itens));
-}
-
-// Criar um novo instrumento
-function criarInstrumento(instrumento: Omit<Instrumento, "id">): void {
-  const instrumentos = getInstrumentos();
-  const novoInstrumento: Instrumento = { id: Date.now(), ...instrumento };
-  instrumentos.push(novoInstrumento);
-  salvarInstrumentos(instrumentos);
-  exibir();
-}
-
-// Atualizar um usuario existente
-function atualizarInst(instrumento: Instrumento): void {
-  const instrumentos = getInstrumentos().map((i) => (i.id === instrumento.id ? instrumento : i));
-  salvarInstrumentos(instrumentos);
-  exibir();
-}
-
-// Deletar um instrumento
-function deletarInstrumento(id: number): void {
-  const instrumentos = getInstrumentos().filter((i) => i.id !== id);
-  salvarInstrumentos(instrumentos);
-  exibir();
-}
-
-// Renderizar a lista de instrumentos na tela
-function exibir(): void {
-  const list = document.getElementById("listaInstrumentos") as HTMLUListElement;
-  list.innerHTML = "";
-
-  getInstrumentos().forEach((instrumento) => {
-    const li = document.createElement("li");
-    li.textContent = `${instrumento.name} (${instrumento.email})`;
-
-    list.appendChild(li);
-  });
-}
-
-// Preencher o formulario para edição
-function preencherForm(instrumento: Instrumento): void {
-    // lembrar mudar os id's de acordo com os campos do formulario
-  (document.getElementById("userId") as HTMLInputElement).value = instrumento.id.toString();
-  (document.getElementById("name") as HTMLInputElement).value = instrumento.name;
-  (document.getElementById("email") as HTMLInputElement).value = instrumento.email;
-}
-
-// Lidar com envio do formulário
-const form = document.getElementById("userForm") as HTMLFormElement;
-form.addEventListener("submit", (e) => {
-  e.preventDefault();
-    // lembrar mudar os id's de acordo com os campos do formulario
-  const id = (document.getElementById("userId") as HTMLInputElement).value;
-  const name = (document.getElementById("name") as HTMLInputElement).value;
-  const email = (document.getElementById("email") as HTMLInputElement).value;
-
-  if (id) {
-    atualizarInst({ id: Number(id), name, email });
-  } else {
-    criarInstrumento({ name, email });
   }
 
-  form.reset();
-  (document.getElementById("userId") as HTMLInputElement).value = "";
-});
+  salvarInstrumentos(items: I[]): void {
+    localStorage.setItem(this.storageKey, JSON.stringify(items));
+  }
 
-exibir();
+  criarInstrumento(item: Omit<I, 'idInstrumento'>): void {
+    const all = this.getInstrumentos();
+    const newItem = { idInstrumento: Date.now(), ...item } as I;
+    all.push(newItem);
+    this.salvarInstrumentos(all);
+    this.exibir();
+    console.log(newItem);
+  }
+
+  atualizarInst(updatedItem: I): void {
+    const all = this.getInstrumentos().map(i => i.idInstrumento === updatedItem.idInstrumento ? updatedItem : i);
+    this.salvarInstrumentos(all);
+  }
+
+  delete(id: number): void {
+    const all = this.getInstrumentos().filter(i => i.idInstrumento !== id);
+    this.salvarInstrumentos(all);
+  }
+  
+  // Renderizar a lista de instrumentos na tela
+  exibir(): void {
+    const list = document.getElementById("listaInstrumentos") as HTMLUListElement;
+    list.innerHTML = "";
+  
+    this.getInstrumentos().forEach((instrumento) => {
+      const li = document.createElement("li");
+      li.textContent = `${instrumento.nome} (${instrumento.preco})`;
+  
+      list.appendChild(li);
+    });
+  }
+  
+}
+
+
+// Variavel generica pra pegar o form
+const form = document.getElementById('form');
+
+
+// ===========================================================================================
+
+
+// Função para trocar os campos do formulário de acordo com o tipo de instrumento
+function trocarCampos(): void{
+  const select = document.getElementById("tipoInstrumento") as HTMLSelectElement || null;
+  const opcaoSelecionada = (select.value || null)?.trim();
+
+  const grupos = document.querySelectorAll(".grupo-campos");
+    const campos = document.querySelectorAll(".campo");
+console.log(campos);
+    grupos.forEach((g) => {
+        g.classList.add("hidden");
+        campos.forEach(c => {
+                c.removeAttribute('required');
+                c.setAttribute('disabled', '');
+            })
+    });
+
+    const grupo = document.getElementById(`grupo-${opcaoSelecionada}`) || null;
+    if (grupo) {
+        grupo.classList.remove("hidden");
+        campos.forEach(c => {
+                c.removeAttribute('disabled');
+            })
+    }
+    else {
+        console.warn(`Nenhum grupo encontrado com id "grupo-${opcaoSelecionada}"`);
+    }
+
+}
+
+document.addEventListener("DOMContentLoaded", () => {
+  const select = document.getElementById("tipoInstrumento") as HTMLSelectElement | null;
+  if (!select) return;
+  select.addEventListener("change", trocarCampos);
+
+  // Mostra o grupo inicial caso haja valor por padrão
+  trocarCampos();
+});

@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cadastro de novo instrumento</title>
+    <link rel="stylesheet" href="../../src/estilo/estilo.css">
+</head>
+<body>
+    <header>
+<div class="container topo">
+<h1> <img src="./src/Imagens/logos/Umiverso.png" width= 250px height= 180px ></h1>
+ <div class="search-container"> <!--Barra de busca-->
+    <input type="search" name="q" placeholder="Buscar...">
+    <button type="submit">🔍</button>
+  </div>
+<nav aria-label="Principal">
+    
+<!-- MENU SIMPLES: links para as páginas -->
+<ul>
+    <li><a href="./login.html">Login</a></li>
+    <li><a href="./src/paginas/cadastroInstrumento.html">Cadastrar</a></li>
+    
+</ul>
+</nav>
+</div>
+</header>
+<main>
+    <section>
+        <!-- atualizar o formulario -->
+        <h1>Cadastre um novo instrumento</h1>
+        <form class="form" id="form">
+            <input type="hidden" id="idInstrumento">
+            <div >
+                <label for="nomeInstrumento">Nome: </label>
+                <input type="text" id="nomeInstrumento">
+            </div>
+            <div >
+                <label for="tipoInstrumento">Tipo:</label>
+                <select name="tipoInstrumento" id="tipoInstrumento">
+                    <option value="violao">Violão</option>
+                    <option value="baixo-guitarra">Baixo / Guitarra</option>
+                </select>
+            </div>
+
+            <div class="grid-2">
+
+                
+                <div >
+                    <label for="preco">Preço: </label>
+                    <input class="campo" type="number" id="preco" placeholder="R$0,00" step="0.01" min="1" max="20000">
+                </div>
+                <div >
+                    <label for="modelo">Modelo: </label>
+                    <input class="campo" type="text" id="modelo">
+                </div>
+            </div>
+
+
+            <div class="grid-2 grupo-campos" id="grupo-violao">
+                <div >
+                    <label for="cordaCorpo">Tipo de corda e formato do corpo: </label>
+                    <input class="campo" type="text" id="cordaCorpo" disabled required>
+                </div>
+                <div >
+                    <label for="configEletronica">Principal configuração eletrônica: </label>
+                    <input class="campo" type="text" id="configEletronica" disabled required>
+                </div>
+                <div >
+                    <label for="materialTampo">Material do tampo: </label>
+                    <input class="campo" type="text" id="materialTampo" disabled required>
+                </div>
+                <div >
+                    <label for="compEscala">Comprimento da escala: </label>
+                    <input class="campo" type="text" id="compEscala" disabled required>
+                </div>
+                <div >
+                    <label for="orientacao">Orientação: </label>
+                    <input class="campo" type="text" id="orientacao" disabled required>
+                </div>
+                <div >
+                    <label for="materialEscala">Material da escala: </label>
+                    <input class="campo" type="text" id="materialEscala" disabled required>
+                </div>
+
+            </div>
+
+            <div class="grid-2 grupo-campos" id="grupo-baixo-guitarra">
+                <div >
+                    <label for="corpoCaptadores">Formato do corpo e configuração de captadores: </label>
+                    <input class="campo" type="text" id="corpoCaptadores" disabled required>
+                </div>
+                <div >
+                    <label for="materialCorpo">Material principal do corpo: </label>
+                    <input class="campo" type="text" id="materialCorpo" disabled required>
+                </div>
+                <div >
+                    <label for="materialBraco">Material do braço: </label>
+                    <input class="campo" type="text" id="materialBraco" disabled required>
+                </div>
+                <div >
+                    <label for="materialEscala">Material da escala: </label>
+                    <input class="campo" type="text" id="materialEscala" disabled required>
+                </div>
+                <div >
+                    <label for="escalaPonte">Comprimento da escala/Tipo de ponte: </label>
+                    <input class="campo" type="text" id="escalaPonte" disabled required>
+                </div>
+                <div >
+                    <label for="controlesEletronicos">Controles eletrônicos/Circuito: </label>
+                    <input class="campo" type="text" id="controlesEletronicos" disabled required>
+                </div>
+            </div>
+
+
+            <div class="descricao">
+                <label for="descricao">Descrição: </label>
+                <textarea name="descricao" id="descricao" required></textarea>
+            </div>
+            <button type="submit" class="btn" id="btnSubmit">cadastrar</button>
+        </form>
+    </section>
+
+    <ul id="listaInstrumentos"></ul>
+    </main>
+    <footer>
+<div class="container">© 2025 Universo Musical</div>
+</footer>
+<script type="module" src="../../dist/main.js" defer></script>
+<script>
+  // Muda o texto do botão conforme modo edição/cadastro
+  document.addEventListener('DOMContentLoaded', function() {
+    const btn = document.getElementById('btnSubmit');
+    const idInput = document.getElementById('idInstrumento');
+    if (!btn || !idInput) return;
+    function atualizarTextoBotao() {
+      btn.textContent = idInput.value ? 'Salvar edição' : 'Cadastrar';
+    }
+    idInput.addEventListener('input', atualizarTextoBotao);
+    atualizarTextoBotao();
+  });
+</script>
+</body>
+</html>
