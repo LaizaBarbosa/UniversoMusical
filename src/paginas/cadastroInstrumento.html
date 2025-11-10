@@ -9,7 +9,7 @@
 <body>
     <header>
 <div class="container topo">
-<h1> <img src="./src/Imagens/logos/Umiverso.png" width= 250px height= 180px ></h1>
+<h1> <img src="../Imagens/logos/Umiverso.png" width= 100px height= 180px ></h1>
  <div class="search-container"> <!--Barra de busca-->
     <input type="search" name="q" placeholder="Buscar...">
     <button type="submit">🔍</button>
@@ -18,7 +18,6 @@
     
 <!-- MENU SIMPLES: links para as páginas -->
 <ul>
-    <li><a href="./login.html">Login</a></li>
     <li><a href="./src/paginas/cadastroInstrumento.html">Cadastrar</a></li>
     
 </ul>
@@ -33,7 +32,7 @@
             <input type="hidden" id="idInstrumento">
             <div >
                 <label for="nomeInstrumento">Nome: </label>
-                <input type="text" id="nomeInstrumento">
+                <input type="text" id="nomeInstrumento" required>
             </div>
             <div >
                 <label for="tipoInstrumento">Tipo:</label>
@@ -43,16 +42,21 @@
                 </select>
             </div>
 
+            <div >
+                <label for="imagem">Imagem do instrumento: </label>
+                <input type="image" id="imagem" src="../Imagens/produtos/Baixo/Baixo Michael BM675-1.jpg" required>
+            </div>
+
             <div class="grid-2">
 
                 
                 <div >
                     <label for="preco">Preço: </label>
-                    <input class="campo" type="number" id="preco" placeholder="R$0,00" step="0.01" min="1" max="20000">
+                    <input class="campo" type="number" id="preco" placeholder="R$0,00" step="0.01" min="1" max="20000" required>
                 </div>
                 <div >
                     <label for="modelo">Modelo: </label>
-                    <input class="campo" type="text" id="modelo">
+                    <input class="campo" type="text" id="modelo" required>
                 </div>
             </div>
 

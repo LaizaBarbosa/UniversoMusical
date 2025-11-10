@@ -4,6 +4,7 @@ interface Instrumento {
   preco: number;
   tipo: string;
   modelo: string;
+  imagem: [];
 }
 
 
@@ -19,7 +20,8 @@ class Violao implements Instrumento {
     public materialTampo:string,
     public compEscala:string,
     public orientacao:string,
-    public materialEscala:string
+    public materialEscala:string,
+    public imagem: []
   ){}
 }
 
@@ -35,18 +37,10 @@ class BaixoGuitarra implements Instrumento {
     public materialBraco:string,
     public materialEscala:string,
     public escalaPonte:string,
-    public controlesEletronicos:string
+    public controlesEletronicos:string,
+    public imagem: []
   ){}
 }
-interface produto {
-  id: number;
-  nome: string;
-  preco: number;
-  categoria: string;
-  descricao: string;
-  especificacoes: string;
-  imagem: string[]
-};
 
 
 

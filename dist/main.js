@@ -1,6 +1,5 @@
-"use strict";
 // Classe generica para o crud da interface INSTRUMENTO
-class LocalStorageService {
+export class LocalStorageService {
     constructor(storageKey) {
         this.storageKey = storageKey;
     }

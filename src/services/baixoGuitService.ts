@@ -1,6 +1,10 @@
+import { LocalStorageService } from "../../main";
+
 const baixoGuitService = new LocalStorageService<BaixoGuitarra>('baixos-guitarras');
 
 // Pega o formulário e adiciona o event listener de submit
+const form = document.getElementById('form');
+
 form?.addEventListener('submit', (e) => {
   e.preventDefault();
   

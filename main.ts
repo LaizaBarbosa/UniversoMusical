@@ -1,17 +1,17 @@
 // Classe generica para o crud da interface INSTRUMENTO
-class LocalStorageService<I extends Instrumento> {
+export class LocalStorageService<I extends Instrumento> {
   constructor(private storageKey: string) {}
-
+  
   getInstrumentos(): I[] {
     const data = localStorage.getItem(this.storageKey);
     return data ? JSON.parse(data) : [];
-
+    
   }
-
+  
   salvarInstrumentos(items: I[]): void {
     localStorage.setItem(this.storageKey, JSON.stringify(items));
   }
-
+  
   criarInstrumento(item: Omit<I, 'idInstrumento'>): void {
     const all = this.getInstrumentos();
     const newItem = { idInstrumento: Date.now(), ...item } as I;
@@ -20,12 +20,12 @@ class LocalStorageService<I extends Instrumento> {
     this.exibir();
     console.log(newItem);
   }
-
+  
   atualizarInst(updatedItem: I): void {
     const all = this.getInstrumentos().map(i => i.idInstrumento === updatedItem.idInstrumento ? updatedItem : i);
     this.salvarInstrumentos(all);
   }
-
+  
   delete(id: number): void {
     const all = this.getInstrumentos().filter(i => i.idInstrumento !== id);
     this.salvarInstrumentos(all);
@@ -35,16 +35,17 @@ class LocalStorageService<I extends Instrumento> {
   exibir(): void {
     const list = document.getElementById("listaInstrumentos") as HTMLUListElement;
     list.innerHTML = "";
-  
+    
     this.getInstrumentos().forEach((instrumento) => {
       const li = document.createElement("li");
       li.textContent = `${instrumento.nome} (${instrumento.preco})`;
-  
+      
       list.appendChild(li);
     });
   }
   
 }
+
 
 
 // Variavel generica pra pegar o form
