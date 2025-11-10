@@ -37,4 +37,20 @@ class BaixoGuitarra implements Instrumento {
     public escalaPonte:string,
     public controlesEletronicos:string
   ){}
+}
+interface produto {
+  id: number;
+  nome: string;
+  preco: number;
+  categoria: string;
+  descricao: string;
+  especificacoes: string;
+  imagem: string[]
 };
+
+
+
+
+
+
+

@@ -207,3 +207,84 @@ body { font-family: Arial, sans-serif; margin: 0; padding: 20px;}
 textarea{
   height: 120px;
 }
+
+/*****************************************************************/
+
+
+/* Título do Produto */
+#nome {
+  font-size: 1.8em;
+  color: #000;
+  margin-bottom: 10px;
+}
+
+/* Área de Preço */
+.preco-area {
+  display: flex;
+  align-items: baseline;
+  padding: 10px 0;
+  border-top: 1px solid #eee;
+  margin-bottom: 15px;
+}
+
+/* Label "Preço:" */
+.preco-label {
+  font-weight: bold;
+  margin-right: 10px;
+}
+
+/* Valor R$ */
+.preco-valor {
+  font-size: 2em;
+  color: #43b128;
+  font-weight: 700;
+}
+
+
+/* --- SEÇÃO DE ESPECIFICAÇÕES E DESCRIÇÃO --- */
+
+.especificacoes {
+  padding: 20px;
+  background-color: #ffffff;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+}
+
+/* Títulos */
+.especificacoes h3 {
+  color: #000;
+  margin-top: 20px;
+  margin-bottom: 10px;
+  border-bottom: 2px solid #ffd700;
+  padding-bottom: 5px;
+}
+
+/* Parágrafo de Descrição */
+#descricao {
+  margin-bottom: 20px;
+  text-align: justify;
+}
+
+/* Lista de Especificações */
+#especificacoes {
+  list-style: disc inside; /* Bolinha simples */
+  margin-left: 20px;
+}
+
+#especificacoes li {
+  margin-bottom: 5px;
+}
+
+/* Botão Voltar*/
+.btn-voltar {
+  display: inline-block;
+  background-color: #6c757d;
+  color: white;
+  padding: 8px 15px;
+  text-decoration: none;
+  border-radius: 5px;
+  margin-top: 15px;
+  transition: background-color 0.3s;
+}
+
+

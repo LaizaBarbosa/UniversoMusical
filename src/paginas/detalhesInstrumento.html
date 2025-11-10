@@ -3,117 +3,101 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Home | Site DLLAC</title> <!--Nome do site-->
+<title>Produto | Universo Musical</title> 
 <link rel="stylesheet" href="../estilo/estilo.css">
 </head>
 <body>
 
 <header>
 <div class="container topo">
-<h1> <img src="#" width= 200px height= 90px ></h1>
+<h1> <img src="../Imagens/logos/Umiverso.png" width= 100px height= 90px ></h1>
  <div class="search-container"> <!--Barra de busca-->
     <input type="search" name="q" placeholder="Buscar...">
     <button type="submit">🔍</button>
   </div>
-<nav aria-label="Principal">
-    
-<!-- MENU SIMPLES: links para as páginas -->
-<ul>
-     <li><a href="./index.html">Home</a></li>
-     <li><a href="./login.html">Login</a></li>
-     <li><a href="./Carrinho.html">Carrinho</a></li>
-</ul>
+  <nav aria-label="Principal">
+  <a href="index.html">Home</a>
 </nav>
 </div>
 </header>
 
-<h1>Instrumentos de Corda</h1>
-  <ul class="lista-produtos">
-    <li>
-      <img src="#" alt="Produto 1">
-      <h3>Nome do Produto</h3>
-      <p>Valor</p>
-    </li>
-    <li>
-      <img src="#" alt="Produto 2">
-      <h3>Nome do Produto</h3>
-      <p>Valor</p>
-    </li>
-    <li>
-      <img src="#" alt="Produto 3">
-      <h3>Nome do Produto</h3>
-      <p>Valor</p>
-    </li>
-    <li >
-      <img src="#" alt="Produto 4">
-      <h3>Nome do Produto</h3>
-      <p>Valor</p>
-    </li>
-    <li>
-      <img src="#" alt="Produto 5">
-      <h3>Nome do Produto</h3>
-      <p>Valor</p>
-    </li>
-    <li>
-      <img src="#" alt="Produto 6">
-      <h3>Nome do Produto</h3>
-      <p>Valor</p>
-    </li>
-    <li>
-      <img src="#" alt="Produto 7">
-      <h3>Nome do Produto</h3>
-      <p>Valor</p>
-    </li>
-    <li>
-      <img src="#" alt="Produto 8">
-      <h3>Nome do Produto</h3>
-      <p>Valor</p>
-    </li>
-    <li>
-      <img src="#" alt="Produto 9">
-      <h3>Nome do Produto</h3>
-      <p>Valor</p>
-    </li>
-    <li>
-      <img src="#" alt="Produto 10">
-      <h3>Nome do Produto</h3>
-      <p>Valor</p>
-    </li>
-    <li>
-      <img src="#" alt="Produto 11">
-      <h3>Nome do Produto</h3>
-      <p>Valor</p>
-    </li>
-    <li>
-      <img src="#" alt="Produto 12">
-      <h3>Nome do Produto</h3>
-      <p>Valor</p>
-    </li>
-    <li>
-      <img src="#" alt="Produto 13">
-      <h3>Nome do Produto</h3>
-      <p>Valor</p>
-    </li>
-    <li>
-      <img src="#" alt="Produto 14">
-      <h3>Nome do Produto</h3>
-      <p>Valor</p>
-    </li>
-    <li>
-      <img src="#" alt="Produto 15">
-      <h3>Nome do Produto</h3>
-      <p>Valor</p>
-    </li>
-    <li>
-      <img src="#" alt="Produto 16">
-      <h3>Nome do Produto</h3>
-      <p>Valor</p>
-    </li>
+ <section>
+<ul>
+
+                        <!--CRIAR ESPCO IMG-->
+
+  <!--Nome do prod-->
+  <div class="info-compra">
+      <h2 id="nome">Nome</h2>
+      
+      <p class="resumo-produto" id="produto-resumo"></p>
+  <!--Preço do prod-->  
+      <div class="preco-area">
+          <span class="preco-label">Preço:</span>
+          <span id="preco" class="preco-valor">R$ 0,00</span>
+      </div>
+      
+  </div>
+</section>
+
+<section class="especificacoes">
+  
+  <h3>Descrição Completa</h3>
+  <p id="descricao"></p>
+
+  <h3>Especificações Técnicas</h3>
+  <ul id="especificacoes">
+    <p><a href="index.html" class="btn-voltar">← Voltar</a></p>
+  </div>
+  </div>
   </ul>
+</section>
+        </section>
+
+        <!--Rodapé-->
+        <section class="footer">
+          <div class="footer-logo">
+            <img src="../Imagens/logos/Umiverso.png" alt="Logo Universo Musical">
+          </div>
+        
+          <div class="footer-content">
+            <div class="footer-col">
+              <h4>Institucional</h4>
+              <ul>
+                <li><a href="#">Nossa História</a></li>
+                <li><a href="#">Nossas Lojas</a></li>
+                <li><a href="#">Projetos Sociais</a></li>
+                <li><a href="#">Trabalhe Conosco</a></li>
+              </ul>
+            </div>
+        
+            <div class="footer-col">
+              <h4>Atendimento</h4>
+              <ul>
+                <li><span>📧</span> sac@universomusical.com.br</li>
+                <li><span>📞</span> (11) 5094-4776</li>
+                <li><span>📱</span> (11) 99496-8050</li>
+              </ul>
+            </div>
+        
+            <div class="footer-col">
+              <h4>Dúvidas</h4>
+              <ul>
+                <li><a href="#">Formas de Pagamento</a></li>
+                <li><a href="#">Processo de Entrega</a></li>
+                <li><a href="#">Trocas e Devoluções</a></li>
+                <li><a href="#">Política de Privacidade</a></li>
+                <li><a href="#">Dúvidas Frequentes</a></li>
+                <li><a href="#">Regras do Site</a></li>
+              </ul>
+            </div>
+          </div>
+        </section>
+    </main>
 
 <footer>
 <div class="container">© 2025 Site de instrumentos musicais</div>
 </footer>
-<script src="../../dist/main.js"></script>
+<script src="/descr.ts"></script>
 </body>
 </html>
