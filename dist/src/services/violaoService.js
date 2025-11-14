@@ -1,4 +1,6 @@
+import { LocalStorageService } from "../../main";
 const violaoService = new LocalStorageService('violao');
+const form = document.getElementById('form');
 // Função para preencher o formulário com os dados do violão
 export function preencherFormularioViolao(violao) {
     document.getElementById('idInstrumento').value = String(violao.idInstrumento);

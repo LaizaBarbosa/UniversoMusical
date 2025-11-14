@@ -1,30 +1,28 @@
 import express, { Request, Response } from "express";
 import cors from "cors";
 
-// Inicializando o app
 const app = express();
 app.use(cors());
 app.use(express.json());
 
-// Interface que define o tipo dos produtos
-interface produto {
-  id: number;
-  nome: string;
-  preco: number;
- tipo: string;
-  descricao: string;
-  especificacoes: string;
-  imagem: string[];
+
+interface Instrumento {
+    idInstrumento: number;
+    nome: string;
+    preco: number;
+    tipo: string;
+    imagem: string[];
+    descricao: string;          
+    especificacoes: string;     
 }
 
-// Banco de dados simulado
-let proximoId = '';
-let produtos = [
+// Lista de instrumentos detalhes
+const instrumentos: Instrumento[] = [
     {
-        id: 1, 
+        idInstrumento: 1, 
         nome: 'Violão Yamaha C40', 
         preco: 888.00, 
-       tipo: 'Violão', 
+        tipo: 'Violão', 
         descricao: 'O Violão Yamaha C40MII é um instrumento com modelo Clássico com uma ótima caixa de ressonância, tornam este Instrumento perfeito para músicos que buscam um Violão para tocar em casa, no churrasco com os amigos, para estudo e iniciação no Violão. Constituído com tampo em Spruce, lateral e fundo em Meranti, este modelo proporciona excelente tocabilidade e timbre perfeito. A história da Yamaha começou por volta do ano de 1887 pelo fundador Torakusu Yamaha, iniciando a produção de instrumentos ocidentais no Japão. O primeiro instrumento foi um órgão de bambu do Japão, e consequentemente a inspiração veio de forma natural para a criação de outros instrumentos. Atualmente, a marca é uma das maiores fabricantes de instrumentos musicais do mundo, buscando entregar qualidade e inspirar cada vez mais as pessoas a se apaixonar pelo mundo da música.',
         especificacoes: 'Tipo de Corda e Formato do Corpo: Nylon (Clássico/Espanhol, sem cutaway); Principal Configuração Eletrônica (Captação/Pré): Acústico Puro (Sem sistema elétrico/captador); Material do Tampo (Top): Abeto Laminado (Spruce); Comprimento de Escala / Orientação: 650 mm (Padrão Clássico Mão Destra); Material da Escala: Rosewood (Jacarandá).',
         imagem: [
@@ -35,7 +33,7 @@ let produtos = [
     },
 
     {
-        id: 2, 
+        idInstrumento: 2, 
         nome:'Violão Tagima Kansas' , 
         preco: 1439.00, 
        tipo: 'Violão', 
@@ -49,7 +47,7 @@ let produtos = [
     },
 
     {
-        id: 3, 
+        idInstrumento: 3, 
         nome:'Violão Gianinni GF-1D CE' , 
         preco: 690.54, 
        tipo: 'Violão', 
@@ -63,7 +61,7 @@ let produtos = [
     },
 
     {
-        id: 4, 
+        idInstrumento: 4, 
         nome:'Violão Elétrico Michael Galaxy Folk Vm925dtc' , 
         preco: 1181.00, 
        tipo: 'Violão', 
@@ -77,7 +75,7 @@ let produtos = [
     },
 
     {
-        id: 5, 
+        idInstrumento: 5, 
         nome:'Violão Strinberg SD200C' , 
         preco: 1139.05, 
        tipo: 'Violão', 
@@ -91,7 +89,7 @@ let produtos = [
     },
 
     {
-        id: 6, 
+        idInstrumento: 6, 
         nome:'Guitarra Tagima TG-530' , 
         preco: 1494.40, 
        tipo: 'Guitarra/Baixo', 
@@ -105,7 +103,7 @@ let produtos = [
     },
 
     {
-        id: 7, 
+        idInstrumento: 7, 
         nome:'Squier Affinity Stratocaster' , 
         preco: 2409.99, 
        tipo: 'Guitarra', 
@@ -119,7 +117,7 @@ let produtos = [
     },
 
     {
-        id: 8, 
+        idInstrumento: 8, 
         nome:'Epiphone Les Paul Special VE Vintage' , 
         preco: 1590.00, 
         tipo: 'Guitarra', 
@@ -133,7 +131,7 @@ let produtos = [
     },
 
     {
-        id: 9, 
+        idInstrumento: 9, 
         nome:'Guitarra Tagima T-635 Classic' , 
         preco: 1529.10, 
         tipo: 'Guitarra', 
@@ -147,7 +145,7 @@ let produtos = [
     },
 
     {
-        id: 10, 
+        idInstrumento: 10, 
         nome:'Guitarra Epiphone Flying V Korina 1958 – Aged Natural' , 
         preco: 12319.00, 
        tipo: 'Guitarra', 
@@ -161,7 +159,7 @@ let produtos = [
     },
 
     {
-        id: 11, 
+        idInstrumento: 11, 
         nome:'Contrabaixo Fender Squier Affinity Jazz Bass' , 
         preco: 2709.00, 
        tipo: 'Baixo', 
@@ -175,7 +173,7 @@ let produtos = [
     },
 
     {
-        id: 12, 
+        idInstrumento: 12, 
         nome:'Baixo Tagima TW-66' , 
         preco: 1439.91, 
        tipo: 'Baixo', 
@@ -189,7 +187,7 @@ let produtos = [
     },
 
     {
-        id: 13, 
+        idInstrumento: 13, 
         nome:'Baixo Yamaha TRBX 174' , 
         preco: 1944.90, 
        tipo: 'Baixo', 
@@ -203,7 +201,7 @@ let produtos = [
     },
 
     {
-        id: 14, 
+        idInstrumento: 14, 
         nome:'Contra Baixo Strinberg JBS40 SB Jazz 11162' , 
         preco: 1510.50, 
        tipo: 'Baixo', 
@@ -217,7 +215,7 @@ let produtos = [
     },
 
     {
-        id: 15, 
+        idInstrumento: 15, 
         nome:'Baixo Michael BM675' , 
         preco: 1349.00, 
        tipo: 'Baixo', 
@@ -230,45 +228,40 @@ let produtos = [
         ]
     },
 ]
-    app.get("/produtos", (req: Request, res: Response) => {
-    res.json(produtos);
-  });
-  
-  // Buscar produto pelo ID
-  app.get("/produtos/:id", (req: Request, res: Response) => {
+  // API
+app.get("/", (req: Request, res: Response) => {
+    res.json({ 
+        mensagem: "API da Loja de Instrumentos",
+        totalInstrumentos: instrumentos.length
+    });
+});
+
+app.get("/instrumentos", (req: Request, res: Response) => {
+    res.json(instrumentos);
+});
+
+app.get("/instrumentos/:id", (req: Request, res: Response) => {
     const id = Number(req.params.id);
-    const produto = produtos.find((p) => p.id === id);
-  
-    if (!produto) {
-      return res.status(404).json({ mensagem: "Produto não encontrado" });
+    const instrumento = instrumentos.find(i => i.idInstrumento === id);
+    
+    if (!instrumento) {
+        return res.status(404).json({ erro: "Instrumento não encontrado" });
     }
-  
-    res.json(produto);
-  });
-  
-  
-  // Atualizar produto existente
-  app.put("/produtos/:id", (req: Request, res: Response) => {
-    const id = Number(req.params.id);
-    const index = produtos.findIndex((p) => p.id === id);
-  
-    if (index === -1) {
-      return res.status(404).json({ mensagem: "Produto não encontrado" });
-    }
-  
-    produtos[index] = { ...produtos[index], ...req.body };
-    res.json(produtos[index]);
-  });
-  
-  // Deletar produto
-  app.delete("/produtos/:id", (req: Request, res: Response) => {
-    const id = Number(req.params.id);
-    produtos = produtos.filter((p) => p.id !== id);
-    res.status(204).send();
-  });
-  
-  // Servidor
-  const PORT = 3000;
-  app.listen(PORT, () => {
-    console.log(`Servidor rodando em http://localhost:${PORT}`);
-  });
+    
+    res.json(instrumento);
+});
+
+app.get("/instrumentos/tipo/:tipo", (req: Request, res: Response) => {
+    const tipo = req.params.tipo;
+    const instrumentosFiltrados = instrumentos.filter(i => 
+        i.tipo.toLowerCase() === tipo.toLowerCase()
+    );
+    
+    res.json(instrumentosFiltrados);
+});
+
+// Servidor
+const PORT = 3000;
+app.listen(PORT, () => {
+    console.log(`Servidor rodando: http://localhost:${PORT}`);
+});

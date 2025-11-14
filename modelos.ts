@@ -3,7 +3,8 @@ interface Instrumento {
   nome: string;
   preco: number;
   tipo: string;
-  modelo: string;
+  descricao: string;
+  especificacoes: string;
   imagem: [];
 }
 
@@ -14,7 +15,8 @@ class Violao implements Instrumento {
     public nome:string,
     public preco:number,
     public tipo:string,
-    public modelo: string,
+    public descricao:string,
+    public especificacoes:string,
     public cordaCorpo: string,
     public configEletronica:string,
     public materialTampo:string,
@@ -31,7 +33,8 @@ class BaixoGuitarra implements Instrumento {
     public nome:string,
     public preco:number,
     public tipo:string,
-    public modelo: string,
+    public descricao:string,
+    public especificacoes:string,
     public corpCaptadores: string,
     public materialCaptadores:string,
     public materialBraco:string,
