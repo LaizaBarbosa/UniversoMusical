@@ -1,288 +1,396 @@
+/* ====================================
+   1. Variáveis, Reset Básico e Fontes
+   ==================================== */
+:root {
+    /* Cores Principais */
+    --cor-fundo-principal: #1a1a1a; /* Preto quase puro para o fundo, menos agressivo */
+    --cor-fundo-secundario: #000000; /* Preto absoluto para seções de destaque */
+    --cor-texto-principal: #ffffff; /* Branco puro */
+    --cor-texto-secundario: #cccccc; /* Cinza claro para detalhes e descrições */
+    --cor-destaque-sutil: #8c8c8c; /* Cinza médio para bordas e ícones */
+    --cor-botoes: #4a4a4a; /* Cinza escuro para botões */
+    --cor-botoes-hover: #6a6a6a; /* Cinza um pouco mais claro no hover */
 
-* { box-sizing: border-box; }
-body { margin: 0; font-family: Arial, Helvetica, sans-serif; background: #f6f7fb; color: #222; }
-
-
-
-/* ===== Container central para limitar largura ===== */
-.container { width: 95%; max-width: 980px; margin: 0 auto; }
-
-
-/* ===== Cabeçalho e menu ===== */
-header { background: black; color: #fff; }
-header .topo { display: flex; align-items: center; justify-content: space-between; padding: 12px 0; }
-header h1 { font-size: 18px; margin: 0; }
-nav ul { list-style: none; padding: 0; margin: 0; display: flex; gap: 10px; flex-wrap: wrap; }
-nav a { display: inline-block; padding: 8px 12px; border-radius: 6px; background: rgba(255,255,255,.15); color: #fff; text-decoration: none; }
-nav a:hover { background: rgba(255,255,255,.25); }
-
-
-/* ===== Seções gerais ===== */
-section { padding: 20px 0; }
-.caixa { background: #444444; border: 1px solid ; border-radius: 10px; padding: 16px; }
-.grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
-
-
-
-/* ===== Tabelas simples ===== */
-table { width: 100%; border-collapse: collapse; }
-th, td { border-bottom: 1px solid; padding: 10px; text-align: left; }
-th { background: #f3f4f6; font-weight: 600; }
-
-
-/* ===== Formulários básicos ===== */
-.form { display: grid; gap: 12px; }
-.form-grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
-
-label { font-weight: 600; display: block; margin-bottom: 4px; }
-input, select, textarea { width: 100%; padding: 10px; border: 1px solid ; border-radius: 8px; resize: none; }
-button, .btn { display: inline-block; padding: 10px 14px; border: 0; background: #828282; color: #ffffff; border-radius: 8px; cursor: pointer; text-decoration: none; }
-.btn.sec { background: #828282; }
-
-footer { color: #555; padding: 24px 0; }
-
-/* Add barra de busca */
-.search-container { position: relative; width: 500px; margin: 50px auto;}
-
-.search-container input[type="search"] { width: 100%; padding: 10px 40px 10px 15px; border: 1px solid #ccc; border-radius: 30px;
-  font-size: 16px; box-sizing: border-box;}
-
-.search-container button { /* Lupa no campo de busca*/
-  position: absolute; top: 50%; right: 10px; transform: translateY(-50%); border: none; background: none; font-size: 18px;
-  cursor: pointer; color: #666;
+    /* Fontes (Use uma fonte sans-serif moderna, ex: 'Roboto', 'Open Sans', 'Lato') */
+    --fonte-principal: 'Inter', sans-serif; /* Ou outra fonte moderna */
+    --fonte-titulos: 'Montserrat', sans-serif; /* Uma fonte mais robusta para títulos */
 }
 
-/* Efeito hover */
-.search-container button:hover { color: #000;}
+/* Importa fontes do Google Fonts (adicione ao seu HTML no <head> se usar) */
+/* <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;700&family=Montserrat:wght@600;700&display=swap" rel="stylesheet"> */
 
-/* Css do Section 4 do Index */
-body { font-family: Arial, sans-serif; margin: 0; padding: 20px;}
 
-/* Remove marcadores e margens da lista */
-.lista-produtos { list-style: none; padding: 0; margin: 0 auto; max-width: 1200px; display: grid;
-  grid-template-columns: repeat(4, 1fr); /* 4 colunas */ gap: 20px;}
-
-.produto { background-color: #f9f9f9; padding: 15px; border: 1px solid #ddd; border-radius: 8px;
-  text-align: center; transition: transform 0.2s;}
-
-.rodape-institucional { background-color: #222; color: #fff; padding: 40px 20px; font-family: Arial, sans-serif;}
-
-/* Container das colunas */
-.container-rodape {display: flex; justify-content: space-between; flex-wrap: wrap; max-width: 1200px;margin: 0 auto;}
-
-.lista-icones {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  list-style: none;
-  padding: 20px;
-  background-color: #000; /* fundo preto como na imagem */
-  color: white;
-  font-family: sans-serif;
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
 }
 
-.lista-icones li {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  max-width: 250px;
+body {
+    font-family: var(--fonte-principal);
+    background-color: var(--cor-fundo-principal);
+    color: var(--cor-texto-principal);
+    line-height: 1.6;
+    scroll-behavior: smooth; /* Rolagem suave */
 }
 
-.lista-icones img {
-  width: 40px;
-  height: 40px;
+/* Contêiner genérico para centralizar conteúdo */
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 20px;
 }
 
-.lista-icones .texto {
-  display: flex;
-  flex-direction: column;
+/* ====================================
+   2. Header (Barra Superior)
+   ==================================== */
+header {
+    background-color: var(--cor-fundo-secundario); /* Preto absoluto para o header */
+    padding: 15px 0;
+    border-bottom: 1px solid var(--cor-destaque-sutil);
 }
 
-.lista-icones h4 {
-  margin: 0;
-  font-size: 13px;
-  font-weight: bold;
-  text-transform: uppercase;
+header .topo { /* Usando sua classe .topo para o layout flex */
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 20px; /* Espaçamento entre os itens do header */
 }
 
-.lista-icones p {
-  margin: 0;
-  font-size: 12px;
-  text-transform: uppercase;
+header h1 {
+    margin: 0; /* Remover margem padrão do h1 */
 }
- 
+
+header h1 img {
+    display: block; /* Garante que a imagem se comporte como bloco */
+    max-width: 100px; /* Ajusta ao tamanho que você já definiu */
+    height: auto;
+}
+
+/* Barra de Busca */
+.search-container {
+    flex-grow: 1; /* Permite que a barra de busca ocupe espaço disponível */
+    display: flex;
+    max-width: 500px; /* Largura máxima para a busca */
+}
+
+.search-container input[type="search"] {
+    flex-grow: 1;
+    padding: 10px 15px;
+    border: 1px solid var(--cor-destaque-sutil);
+    background-color: var(--cor-fundo-principal); /* Fundo da busca ligeiramente mais claro */
+    color: var(--cor-texto-principal);
+    border-radius: 5px 0 0 5px; /* Cantos arredondados na esquerda */
+    font-size: 1rem;
+    outline: none; /* Remove outline ao focar */
+}
+
+.search-container input[type="search"]::placeholder {
+    color: var(--cor-texto-secundario);
+}
+
+.search-container button {
+    background-color: var(--cor-botoes);
+    color: var(--cor-texto-principal);
+    border: 1px solid var(--cor-destaque-sutil);
+    border-left: none; /* Remove borda da esquerda para unir com input */
+    padding: 10px 15px;
+    border-radius: 0 5px 5px 0; /* Cantos arredondados na direita */
+    cursor: pointer;
+    font-size: 1.1rem;
+    transition: background-color 0.3s ease;
+}
+
+.search-container button:hover {
+    background-color: var(--cor-botoes-hover);
+}
+
+/* Botão "Cadastrar" */
+header nav ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+
+header nav ul li a {
+    background-color: var(--cor-botoes);
+    color: var(--cor-texto-principal);
+    padding: 10px 20px;
+    text-decoration: none;
+    border-radius: 5px;
+    font-weight: 500;
+    transition: background-color 0.3s ease;
+}
+
+header nav ul li a:hover {
+    background-color: var(--cor-botoes-hover);
+}
+
+/* ====================================
+   3. Seção de Destaque (Tipos de Instrumentos)
+   ==================================== */
+#destaque {
+    background-color: var(--cor-fundo-principal); /* Pode ser o fundo padrão ou mais escuro */
+    padding: 30px 0;
+    text-align: center;
+}
+
+#destaque .lista-icones {
+    list-style: none;
+    display: flex;
+    justify-content: center; /* Centraliza os itens */
+    gap: 30px; /* Espaçamento entre os links */
+    flex-wrap: wrap; /* Quebra linha se não houver espaço */
+}
+
+#destaque .lista-icones li a {
+    display: block;
+    color: var(--cor-texto-secundario); /* Cinza claro */
+    text-decoration: none;
+    font-size: 1.1rem;
+    font-weight: 500;
+    padding: 10px 15px;
+    border-radius: 5px;
+    transition: color 0.3s ease, background-color 0.3s ease;
+}
+
+#destaque .lista-icones li a:hover {
+    color: var(--cor-texto-principal);
+    background-color: var(--cor-botoes); /* Fundo cinza escuro no hover */
+}
+
+/* ====================================
+   4. Carousel (Banner Principal)
+   ==================================== */
 .carousel {
-  position: relative;
-  width: 100%;
-  height: 300px; /* ajuste conforme sua imagem */
-  overflow: hidden;
+    background-color: var(--cor-fundo-secundario); /* Fundo preto para o carrossel */
+    padding: 20px 0; /* Pode ajustar conforme a necessidade de espaço */
+    position: relative; /* Para posicionar controles de navegação se houver */
+    overflow: hidden; /* Garante que imagens não vazem */
 }
 
 .carousel-slide {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  opacity: 0;
-  transition: opacity 1s ease-in-out;
-}
-
-.carousel-slide img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
+    display: none; /* Esconder slides por padrão, JS vai controlar */
+    text-align: center;
 }
 
 .carousel-slide.active {
-  opacity: 1;
-  z-index: 1;
+    display: block; /* Mostrar slide ativo */
 }
-.footer {
-  display: flex;
-  align-items: flex-start;
-  justify-content: space-between;
-  background-color: #000;
-  color: white;
-  padding: 40px 60px;
-  flex-wrap: wrap;
+
+.carousel-slide img {
+    max-width: 100%;
+    height: auto; /* Mantém proporção */
+    border-radius: 8px; /* Cantos levemente arredondados */
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.4); /* Sombra sutil */
+}
+
+/* ====================================
+   5. Section 3 (Ícones com Informações)
+   ==================================== */
+#servicos {
+    background-color: var(--cor-fundo-principal);
+    padding: 40px 0;
+    text-align: center;
+}
+
+#servicos .lista-icones {
+    list-style: none;
+    display: flex;
+    justify-content: space-around;
+    flex-wrap: wrap;
+    gap: 30px;
+}
+
+#servicos .lista-icones li {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 200px; /* Largura fixa para cada item de serviço */
+    padding: 15px;
+    background-color: var(--cor-fundo-secundario);
+    border-radius: 8px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+    transition: transform 0.3s ease;
+}
+
+#servicos .lista-icones li:hover {
+    transform: translateY(-5px); /* Efeito de elevação no hover */
+}
+
+#servicos .lista-icones li img {
+    width: 60px; /* Ícones um pouco maiores */
+    height: 60px;
+    margin-bottom: 10px;
+}
+
+#servicos .lista-icones li h4 {
+    color: var(--cor-texto-principal);
+    font-size: 1.1rem;
+    margin-bottom: 5px;
+    font-family: var(--fonte-titulos);
+}
+
+#servicos .lista-icones li p {
+    color: var(--cor-texto-secundario);
+    font-size: 0.9rem;
+}
+
+/* Estilo para a mensagem de erro da API */
+.loading, .erro {
+    text-align: center;
+    padding: 30px;
+    font-size: 1.2rem;
+    color: var(--cor-texto-secundario);
+    background-color: var(--cor-fundo-secundario);
+    margin-top: 30px;
+    border-radius: 8px;
+}
+
+.erro {
+    color: #ff6b6b; /* Vermelho para erros */
+}
+.erro small {
+    font-size: 0.9rem;
+    display: block;
+    margin-top: 10px;
+}
+
+/* ====================================
+   6. Section 5 (Marcas Parceiras)
+   ==================================== */
+#contato { /* Mantive o ID 'contato' como no seu HTML */
+    background-color: var(--cor-fundo-principal);
+    padding: 50px 0;
+    text-align: center;
+}
+
+#contato h2 {
+    font-family: var(--fonte-titulos);
+    font-size: 2.2rem;
+    color: var(--cor-texto-principal);
+    margin-bottom: 40px;
+}
+
+#contato .lista-produtos {
+    list-style: none;
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap; /* Permite quebrar linha */
+    gap: 40px; /* Espaçamento maior entre logos */
+}
+
+#contato .lista-produtos li img {
+    max-width: 160px; /* Aumenta um pouco o tamanho dos logos */
+    height: auto;
+    filter: grayscale(80%) brightness(150%); /* Deixa os logos cinzas e mais claros */
+    transition: filter 0.3s ease;
+}
+
+#contato .lista-produtos li img:hover {
+    filter: grayscale(0%) brightness(100%); /* Colore no hover */
+}
+
+/* ====================================
+   7. Footer (Rodapé - Informações e Direitos Autorais)
+   ==================================== */
+.footer { /* Usando sua classe .footer para a seção de links */
+    background-color: var(--cor-fundo-secundario);
+    padding: 50px 0 30px;
+    border-top: 1px solid var(--cor-destaque-sutil);
+    display: flex;
+    flex-direction: column; /* Colunas empilhadas em telas pequenas */
+    align-items: center; /* Centraliza conteúdo */
 }
 
 .footer-logo img {
-  width: 180px;
-  max-width: 100%;
+    max-width: 120px;
+    height: auto;
+    margin-bottom: 30px;
 }
 
 .footer-content {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 60px;
+    display: flex;
+    justify-content: space-around;
+    flex-wrap: wrap;
+    gap: 30px;
+    width: 100%;
+    max-width: 900px;
+    margin-bottom: 30px;
+    text-align: left; /* Alinha o texto das colunas à esquerda */
 }
 
 .footer-col {
-  min-width: 180px;
+    flex: 1; /* Distribui o espaço igualmente */
+    min-width: 180px; /* Largura mínima para cada coluna */
 }
 
 .footer-col h4 {
-  color: #ffd700; /* Amarelo ouro */
-  font-size: 16px;
-  margin-bottom: 12px;
-  font-weight: bold;
-  font-family: sans-serif;
+    font-family: var(--fonte-titulos);
+    font-size: 1.2rem;
+    color: var(--cor-texto-principal);
+    margin-bottom: 20px;
+    text-transform: uppercase;
 }
 
 .footer-col ul {
-  list-style: none;
-  padding: 0;
-  margin: 0;
+    list-style: none;
+    padding: 0;
 }
 
 .footer-col ul li {
-  margin-bottom: 8px;
-  font-size: 14px;
-  font-family: sans-serif;
+    margin-bottom: 10px;
 }
 
-.footer-col ul li a {
-  color: white;
-  text-decoration: none;
-  transition: color 0.3s;
+.footer-col ul li a,
+.footer-col ul li span {
+    color: var(--cor-texto-secundario);
+    text-decoration: none;
+    font-size: 0.95rem;
+    transition: color 0.3s ease;
 }
 
 .footer-col ul li a:hover {
-  color: #ffd700;
+    color: var(--cor-texto-principal);
 }
 
-.footer-col ul li span {
-  margin-right: 6px;
-  font-size: 16px;
+/* Direitos Autorais (o seu último footer) */
+footer { /* Este é o seu footer com o © 2025 */
+    background-color: var(--cor-fundo-secundario);
+    color: var(--cor-texto-secundario);
+    text-align: center;
+    padding: 20px 0;
+    font-size: 0.9rem;
+    border-top: 1px solid rgba(255, 255, 255, 0.1); /* Linha fina e clara */
 }
 
-.hidden{
-  display: none;
+/* ====================================
+   8. Responsividade Básica
+   ==================================== */
+@media (max-width: 768px) {
+    header .topo {
+        flex-direction: column; /* Empilha itens do header em telas menores */
+        gap: 15px;
+    }
+
+    .search-container {
+        max-width: 100%; /* Ocupa largura total */
+    }
+
+    #destaque .lista-icones,
+    #servicos .lista-icones,
+    #contato .lista-produtos,
+    .footer-content {
+        flex-direction: column; /* Empilha itens em telas menores */
+        align-items: center;
+        gap: 20px;
+    }
+
+    #servicos .lista-icones li {
+        width: 80%; /* Ocupa mais espaço em telas menores */
+    }
+
+    .footer-col {
+        text-align: center; /* Centraliza texto das colunas */
+    }
 }
-
-textarea{
-  height: 120px;
-}
-
-/*****************************************************************/
-
-
-/* Título do Produto */
-#nome {
-  font-size: 1.8em;
-  color: #000;
-  margin-bottom: 10px;
-}
-
-/* Área de Preço */
-.preco-area {
-  display: flex;
-  align-items: baseline;
-  padding: 10px 0;
-  border-top: 1px solid #eee;
-  margin-bottom: 15px;
-}
-
-/* Label "Preço:" */
-.preco-label {
-  font-weight: bold;
-  margin-right: 10px;
-}
-
-/* Valor R$ */
-.preco-valor {
-  font-size: 2em;
-  color: #43b128;
-  font-weight: 700;
-}
-
-
-/* --- SEÇÃO DE ESPECIFICAÇÕES E DESCRIÇÃO --- */
-
-.especificacoes {
-  padding: 20px;
-  background-color: #ffffff;
-  border-radius: 8px;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
-}
-
-/* Títulos */
-.especificacoes h3 {
-  color: #000;
-  margin-top: 20px;
-  margin-bottom: 10px;
-  border-bottom: 2px solid #ffd700;
-  padding-bottom: 5px;
-}
-
-/* Parágrafo de Descrição */
-#descricao {
-  margin-bottom: 20px;
-  text-align: justify;
-}
-
-/* Lista de Especificações */
-#especificacoes {
-  list-style: disc inside; /* Bolinha simples */
-  margin-left: 20px;
-}
-
-#especificacoes li {
-  margin-bottom: 5px;
-}
-
-/* Botão Voltar*/
-.btn-voltar {
-  display: inline-block;
-  background-color: #6c757d;
-  color: white;
-  padding: 8px 15px;
-  text-decoration: none;
-  border-radius: 5px;
-  margin-top: 15px;
-  transition: background-color 0.3s;
-}
-
-
