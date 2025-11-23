@@ -251,6 +251,63 @@ app.get("/instrumentos/:id", (req: Request, res: Response) => {
     res.json(instrumento);
 });
 
+
+// Criar novo instrumento
+app.post('/instrumentos', (req: Request, res: Response) => {
+    const body = req.body as Partial<Instrumento>;
+
+    if (!body.nome || body.preco == null || !body.tipo) {
+        return res.status(400).json({ erro: 'Dados incompletos' });
+    }
+
+    const novoId = instrumentos.length ? Math.max(...instrumentos.map(i => i.idInstrumento)) + 1 : 1;
+    const novoInstrumento: Instrumento = {
+        idInstrumento: novoId,
+        nome: body.nome as string,
+        preco: Number(body.preco),
+        tipo: body.tipo as string,
+        imagem: body.imagem ?? [],
+        descricao: body.descricao ?? '',
+        especificacoes: body.especificacoes ?? ''
+    };
+
+    instrumentos.push(novoInstrumento);
+    res.status(201).json(novoInstrumento);
+});
+
+// Atualizar instrumento
+app.put('/instrumentos/:id', (req: Request, res: Response) => {
+    const id = Number(req.params.id);
+    const index = instrumentos.findIndex(i => i.idInstrumento === id);
+    if (index === -1) return res.status(404).json({ erro: 'Instrumento não encontrado' });
+
+    const body = req.body as Partial<Instrumento>;
+    const existente = instrumentos[index];
+
+    const atualizado: Instrumento = {
+        idInstrumento: existente.idInstrumento,
+        nome: body.nome ?? existente.nome,
+        preco: body.preco ?? existente.preco,
+        tipo: body.tipo ?? existente.tipo,
+        imagem: body.imagem ?? existente.imagem,
+        descricao: body.descricao ?? existente.descricao,
+        especificacoes: body.especificacoes ?? existente.especificacoes
+    };
+
+    instrumentos[index] = atualizado;
+    res.json(atualizado);
+});
+
+// Deletar instrumento
+app.delete('/instrumentos/:id', (req: Request, res: Response) => {
+    const id = Number(req.params.id);
+    const index = instrumentos.findIndex(i => i.idInstrumento === id);
+    if (index === -1) return res.status(404).json({ erro: 'Instrumento não encontrado' });
+
+    instrumentos.splice(index, 1);
+    res.status(204).send();
+});
+
 app.get("/instrumentos/tipo/:tipo", (req: Request, res: Response) => {
     const tipo = req.params.tipo;
     const instrumentosFiltrados = instrumentos.filter(i => 

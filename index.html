@@ -82,66 +82,69 @@
         </div>
     </main>
 
-    <script>
-        // URL da nossa API
-        const API_URL = 'http://localhost:3000';
+  <script>
+    // URL da nossa API (servidor definido em descr.ts)
+    const API_URL = 'http://localhost:3000';
 
-        // Função para carregar os produtos
-        async function carregarProdutos() {
-            const container = document.getElementById('produtos-container');
-            
-            try {
-                // Faz a requisição para a API
-                const response = await fetch(`${API_URL}/produtos`);
-                
-                if (!response.ok) {
-                    throw new Error('Erro ao carregar produtos');
-                }
-                
-                const produtos = await response.json();
-                
-                // Limpa o container
-                container.innerHTML = '';
-                
-                // Adiciona cada produto na página
-                produtos.forEach(produto => {
-                    const divProduto = document.createElement('div');
-                    divProduto.className = 'produto';
-                    
-                    divProduto.innerHTML = `
-                        <img src="imagens/${produto.imagem[0]}" alt="${produto.nome}">
-                        <h3>${produto.nome}</h3>
-                        <p><strong>Tipo:</strong> ${produto.tipo}</p>
-                        <p class="preco">R$ ${produto.preco.toFixed(2)}</p>
-                        <button class="btn-detalhes" onclick="verDetalhes(${produto.id})">
-                            Ver Detalhes
-                        </button>
-                    `;
-                    
-                    container.appendChild(divProduto);
-                });
-                
-            } catch (error) {
-                console.error('Erro:', error);
-                container.innerHTML = `
-                    <div class="erro">
-                        ❌ Erro ao carregar produtos<br>
-                        <small>Verifique se a API está rodando na porta 3000</small>
-                    </div>
-                `;
-            }
+    // Função para carregar os produtos (instrumentos)
+    async function carregarProdutos() {
+      const container = document.getElementById('produtos-container');
+
+      try {
+        // Faz a requisição para a API correta de instrumentos
+        const response = await fetch(`${API_URL}/instrumentos`);
+
+        if (!response.ok) {
+          throw new Error('Erro ao carregar instrumentos');
         }
 
-        // Função para ver detalhes do produto
-        function verDetalhes(idProduto) {
-            // Salva o ID no localStorage e vai para a página de detalhes
-            localStorage.setItem('produtoId', idProduto);
-            window.location.href = 'detalhes.html';
-        }
+        const instrumentos = await response.json();
 
-        // Carrega os produtos quando a página abre
-        carregarProdutos();
-    </script>
+        // Limpa o container
+        container.innerHTML = '';
+
+        // Adiciona cada instrumento na página
+        instrumentos.forEach(item => {
+          const divProduto = document.createElement('div');
+          divProduto.className = 'produto';
+
+          // usa diretamente o caminho vindo da API (ex: 'src/Imagens/...')
+          const imgSrc = item.imagem && item.imagem.length ? item.imagem[0] : '';
+
+          divProduto.innerHTML = `
+            <img src="${imgSrc}" alt="${item.nome}">
+            <h3>${item.nome}</h3>
+            <p><strong>Tipo:</strong> ${item.tipo}</p>
+            <p class="preco">R$ ${Number(item.preco).toFixed(2)}</p>
+            <button class="btn-detalhes" onclick="verDetalhes(${item.idInstrumento})">
+              Ver Detalhes
+            </button>
+          `;
+
+          container.appendChild(divProduto);
+        });
+
+      } catch (error) {
+        console.error('Erro:', error);
+        container.innerHTML = `
+          <div class="erro">
+            ❌ Erro ao carregar instrumentos<br>
+            <small>Verifique se a API (descr.ts) está rodando na porta 3000</small>
+          </div>
+        `;
+      }
+    }
+
+    // Função para ver detalhes do produto
+    function verDetalhes(idInstrumento) {
+      // Salva o ID no localStorage e vai para a página de detalhes existente
+      localStorage.setItem('produtoId', idInstrumento);
+      window.location.href = './src/paginas/detalhesInstrumento.html';
+    }
+
+    // Carrega os produtos quando a página abre
+    carregarProdutos();
+  </script>
 
 <section id="contato"> <!-- Section 5: Marcas parceiras-->
 <h2>Marcas Parceiras</h2>

@@ -3,7 +3,7 @@ import cors from "cors";
 const app = express();
 app.use(cors());
 app.use(express.json());
-// Lista de instrumentos CORRIGIDA
+// Lista de instrumentos detalhes
 const instrumentos = [
     {
         idInstrumento: 1,
@@ -201,7 +201,7 @@ const instrumentos = [
         ]
     },
 ];
-// ROTAS DA API
+// API
 app.get("/", (req, res) => {
     res.json({
         mensagem: "API da Loja de Instrumentos",
@@ -218,6 +218,56 @@ app.get("/instrumentos/:id", (req, res) => {
         return res.status(404).json({ erro: "Instrumento não encontrado" });
     }
     res.json(instrumento);
+});
+// Criar novo instrumento
+app.post('/instrumentos', (req, res) => {
+    var _a, _b, _c;
+    const body = req.body;
+    if (!body.nome || body.preco == null || !body.tipo) {
+        return res.status(400).json({ erro: 'Dados incompletos' });
+    }
+    const novoId = instrumentos.length ? Math.max(...instrumentos.map(i => i.idInstrumento)) + 1 : 1;
+    const novoInstrumento = {
+        idInstrumento: novoId,
+        nome: body.nome,
+        preco: Number(body.preco),
+        tipo: body.tipo,
+        imagem: (_a = body.imagem) !== null && _a !== void 0 ? _a : [],
+        descricao: (_b = body.descricao) !== null && _b !== void 0 ? _b : '',
+        especificacoes: (_c = body.especificacoes) !== null && _c !== void 0 ? _c : ''
+    };
+    instrumentos.push(novoInstrumento);
+    res.status(201).json(novoInstrumento);
+});
+// Atualizar instrumento
+app.put('/instrumentos/:id', (req, res) => {
+    var _a, _b, _c, _d, _e, _f;
+    const id = Number(req.params.id);
+    const index = instrumentos.findIndex(i => i.idInstrumento === id);
+    if (index === -1)
+        return res.status(404).json({ erro: 'Instrumento não encontrado' });
+    const body = req.body;
+    const existente = instrumentos[index];
+    const atualizado = {
+        idInstrumento: existente.idInstrumento,
+        nome: (_a = body.nome) !== null && _a !== void 0 ? _a : existente.nome,
+        preco: (_b = body.preco) !== null && _b !== void 0 ? _b : existente.preco,
+        tipo: (_c = body.tipo) !== null && _c !== void 0 ? _c : existente.tipo,
+        imagem: (_d = body.imagem) !== null && _d !== void 0 ? _d : existente.imagem,
+        descricao: (_e = body.descricao) !== null && _e !== void 0 ? _e : existente.descricao,
+        especificacoes: (_f = body.especificacoes) !== null && _f !== void 0 ? _f : existente.especificacoes
+    };
+    instrumentos[index] = atualizado;
+    res.json(atualizado);
+});
+// Deletar instrumento
+app.delete('/instrumentos/:id', (req, res) => {
+    const id = Number(req.params.id);
+    const index = instrumentos.findIndex(i => i.idInstrumento === id);
+    if (index === -1)
+        return res.status(404).json({ erro: 'Instrumento não encontrado' });
+    instrumentos.splice(index, 1);
+    res.status(204).send();
 });
 app.get("/instrumentos/tipo/:tipo", (req, res) => {
     const tipo = req.params.tipo;

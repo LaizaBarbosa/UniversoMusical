@@ -16,7 +16,7 @@
     <button type="submit">🔍</button>
   </div>
   <nav aria-label="Principal">
-  <a href="index.html">Home</a>
+  <a href="../../index.html">Home</a>
 </nav>
 </div>
 </header>
@@ -25,6 +25,7 @@
 <ul>
 
                         <!--CRIAR ESPCO IMG-->
+  <div id="imagens" class="galeria"></div>
 
   <!--Nome do prod-->
   <div class="info-compra">
@@ -35,6 +36,7 @@
       <div class="preco-area">
           <span class="preco-label">Preço:</span>
           <span id="preco" class="preco-valor">R$ 0,00</span>
+          
       </div>
       
   </div>
@@ -51,8 +53,12 @@
   </div>
   </div>
   </ul>
+  <div style="margin-top:8px;">
+              <button id="btn-editar" class="btn">Editar</button>
+              <button id="btn-apagar" class="btn btn-danger">Apagar</button>
+            </div>
+          </section>
 </section>
-        </section>
 
         <!--Rodapé-->
         <section class="footer">
@@ -100,6 +106,93 @@
 <footer>
 <div class="container">© 2025 Site de instrumentos musicais</div>
 </footer>
-<script src="/descr.ts"></script>
+
+<script>
+  const API_URL = 'http://localhost:3000';
+
+  document.addEventListener('DOMContentLoaded', async () => {
+    const id = localStorage.getItem('produtoId');
+    const nomeEl = document.getElementById('nome');
+    const precoEl = document.getElementById('preco');
+    const descEl = document.getElementById('descricao');
+    const resumoEl = document.getElementById('produto-resumo');
+    const especEl = document.getElementById('especificacoes');
+    const imagensEl = document.getElementById('imagens');
+
+    if (!id) {
+      if (nomeEl) nomeEl.textContent = 'Instrumento não selecionado';
+      return;
+    }
+
+    try {
+      const res = await fetch(`${API_URL}/instrumentos/${id}`);
+      if (!res.ok) throw new Error('Instrumento não encontrado');
+
+      const item = await res.json();
+
+      if (nomeEl) nomeEl.textContent = item.nome || '';
+      if (precoEl) precoEl.textContent = `R$ ${Number(item.preco).toFixed(2)}`;
+      if (descEl) descEl.textContent = item.descricao || '';
+      if (resumoEl) resumoEl.textContent = (item.especificacoes || '').split('.')?.[0] || '';
+
+      if (especEl) {
+        especEl.innerHTML = '';
+        const li = document.createElement('li');
+        li.textContent = item.especificacoes || '';
+        especEl.appendChild(li);
+      }
+
+      if (imagensEl) {
+        imagensEl.innerHTML = '';
+        if (Array.isArray(item.imagem)) {
+          item.imagem.forEach(src => {
+            const img = document.createElement('img');
+            img.src = src;
+            img.alt = item.nome || 'Instrumento';
+            img.style.maxWidth = '220px';
+            img.style.marginRight = '8px';
+            imagensEl.appendChild(img);
+          });
+        }
+      }
+
+      // configura botões Editar / Apagar
+      const btnApagar = document.getElementById('btn-apagar');
+      const btnEditar = document.getElementById('btn-editar');
+
+      if (btnApagar) {
+        btnApagar.addEventListener('click', async () => {
+          if (!confirm('Tem certeza que deseja apagar este instrumento?')) return;
+          try {
+            const del = await fetch(`${API_URL}/instrumentos/${item.idInstrumento}`, { method: 'DELETE' });
+            if (del.status === 204) {
+              alert('Instrumento apagado');
+              localStorage.removeItem('produtoId');
+              window.location.href = '../../index.html';
+            } else {
+              const err = await del.json().catch(() => ({}));
+              alert('Erro ao apagar: ' + (err.erro || del.statusText));
+            }
+          } catch (e) {
+            console.error('Erro ao apagar:', e);
+            alert('Erro ao apagar instrumento');
+          }
+        });
+      }
+
+      if (btnEditar) {
+        btnEditar.addEventListener('click', () => {
+          localStorage.setItem('produtoId', item.idInstrumento);
+          window.location.href = 'cadastroInstrumento.html';
+        });
+      }
+
+    } catch (err) {
+      console.error('Erro ao carregar detalhe:', err);
+      if (nomeEl) nomeEl.textContent = 'Erro ao carregar instrumento';
+    }
+  });
+</script>
+
 </body>
 </html>

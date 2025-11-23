@@ -1,76 +1,61 @@
-// Classe generica para o crud da interface INSTRUMENTO
-export class LocalStorageService {
-    constructor(storageKey) {
-        this.storageKey = storageKey;
-    }
-    getInstrumentos() {
-        const data = localStorage.getItem(this.storageKey);
-        return data ? JSON.parse(data) : [];
-    }
-    salvarInstrumentos(items) {
-        localStorage.setItem(this.storageKey, JSON.stringify(items));
-    }
-    criarInstrumento(item) {
-        const all = this.getInstrumentos();
-        const newItem = Object.assign({ idInstrumento: Date.now() }, item);
-        all.push(newItem);
-        this.salvarInstrumentos(all);
-        this.exibir();
-        console.log(newItem);
-    }
-    atualizarInst(updatedItem) {
-        const all = this.getInstrumentos().map(i => i.idInstrumento === updatedItem.idInstrumento ? updatedItem : i);
-        this.salvarInstrumentos(all);
-    }
-    delete(id) {
-        const all = this.getInstrumentos().filter(i => i.idInstrumento !== id);
-        this.salvarInstrumentos(all);
-    }
-    // Renderizar a lista de instrumentos na tela
-    exibir() {
-        const list = document.getElementById("listaInstrumentos");
-        list.innerHTML = "";
-        this.getInstrumentos().forEach((instrumento) => {
-            const li = document.createElement("li");
-            li.textContent = `${instrumento.nome} (${instrumento.preco})`;
-            list.appendChild(li);
-        });
-    }
-}
-// Variavel generica pra pegar o form
-const form = document.getElementById('form');
-// ===========================================================================================
-// Função para trocar os campos do formulário de acordo com o tipo de instrumento
-function trocarCampos() {
-    var _a;
-    const select = document.getElementById("tipoInstrumento") || null;
-    const opcaoSelecionada = (_a = (select.value || null)) === null || _a === void 0 ? void 0 : _a.trim();
-    const grupos = document.querySelectorAll(".grupo-campos");
-    const campos = document.querySelectorAll(".campo");
-    console.log(campos);
-    grupos.forEach((g) => {
-        g.classList.add("hidden");
-        campos.forEach(c => {
-            c.removeAttribute('required');
-            c.setAttribute('disabled', '');
-        });
+var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {
+    function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
+    return new (P || (P = Promise))(function (resolve, reject) {
+        function fulfilled(value) { try { step(generator.next(value)); } catch (e) { reject(e); } }
+        function rejected(value) { try { step(generator["throw"](value)); } catch (e) { reject(e); } }
+        function step(result) { result.done ? resolve(result.value) : adopt(result.value).then(fulfilled, rejected); }
+        step((generator = generator.apply(thisArg, _arguments || [])).next());
     });
-    const grupo = document.getElementById(`grupo-${opcaoSelecionada}`) || null;
-    if (grupo) {
-        grupo.classList.remove("hidden");
-        campos.forEach(c => {
-            c.removeAttribute('disabled');
-        });
-    }
-    else {
-        console.warn(`Nenhum grupo encontrado com id "grupo-${opcaoSelecionada}"`);
-    }
+};
+export function getInstrumentos() {
+    return __awaiter(this, void 0, void 0, function* () {
+        const res = yield fetch("http://localhost:3000/instrumentos");
+        return res.json();
+    });
 }
-document.addEventListener("DOMContentLoaded", () => {
-    const select = document.getElementById("tipoInstrumento");
-    if (!select)
-        return;
-    select.addEventListener("change", trocarCampos);
-    // Mostra o grupo inicial caso haja valor por padrão
-    trocarCampos();
-});
+export function getInstrumentoById(id) {
+    return __awaiter(this, void 0, void 0, function* () {
+        const res = yield fetch(`http://localhost:3000/instrumentos/${id}`);
+        if (!res.ok)
+            throw new Error("Instrumento não encontrado");
+        return res.json();
+    });
+}
+export function criarInstrumento() {
+    return __awaiter(this, void 0, void 0, function* () {
+        const nome = document.getElementById("nomeInstrumento").value;
+        const tipo = document.getElementById("tipoInstrumento").value;
+        const preco = Number(document.getElementById("preco").value);
+        const especificacoes = document.getElementById("especificacoes").value;
+        const descricao = document.getElementById("descricao").value;
+        const imagens = document.getElementById("preview").src;
+        const novoInstrumento = {
+            idInstrumento: Date.now(),
+            nome,
+            tipo,
+            preco,
+            especificacoes,
+            descricao,
+            imagem: [imagens]
+        };
+        try {
+            const response = yield fetch(`http://localhost:3000/instrumentos/`, {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify(novoInstrumento)
+            });
+            if (!response.ok) {
+                throw new Error("Erro ao cadastrar instrumento");
+            }
+            const resultado = yield response.json();
+            console.log("Instrumento cadastrado:", resultado);
+            alert("Instrumento cadastrado com sucesso!");
+        }
+        catch (erro) {
+            console.error(erro);
+            alert("Falha ao cadastrar instrumento");
+        }
+    });
+}
