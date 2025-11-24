@@ -2,93 +2,95 @@
 <html lang="pt-br">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Cadastro de novo instrumento</title>
-    <link rel="stylesheet" href="../estilo/estilo.css">
+
+    <!-- CSS GERAL DO SITE -->
+    <link rel="stylesheet" href="../estilo/form.css">
+
+    <!-- CSS DO FORMULÁRIO (NOVO LAYOUT) -->
+    <link rel="stylesheet" href="../estilo/form.css">
 </head>
 <body>
     <header>
-<div class="container topo">
-<h1> <img src="../Imagens/logos/Umiverso.png" width= 100px height= 180px ></h1>
- <div class="search-container"> <!--Barra de busca-->
-    <input type="search" name="q" placeholder="Buscar...">
-    <button type="submit">🔍</button>
-  </div>
-<nav aria-label="Principal">
-    
-<!-- MENU SIMPLES: links para as páginas -->
-<ul>
-    <li><a href="../../index.html">Home</a></li>
-    
-</ul>
-</nav>
-</div>
-</header>
+        <div class="container topo">
+            <h1> 
+                <img src="../Imagens/logos/Umiverso.png" width="100px" height="180px">
+            </h1>
+
+            <div class="search-container">
+                <input type="search" name="q" placeholder="Buscar...">
+                <button type="submit">🔍</button>
+            </div>
+
+            <nav aria-label="Principal">
+                <ul>
+                    <li><a href="../../index.html">Home</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
 <main>
-    <section>
-        <!-- atualizar o formulario -->
-        <h1>Cadastre um novo instrumento</h1>
-        <form class="form" id="form">
-            <input type="hidden" id="idInstrumento">
-            <div >
-                <label for="nomeInstrumento">Nome: </label>
-                <input type="text" id="nomeInstrumento" required>
-            </div>
-            <div >
-                <label for="tipoInstrumento">Tipo:</label>
-                <select name="tipoInstrumento" id="tipoInstrumento">
-                    <option value="violao">Violão</option>
-                    <option value="baixo-guitarra">Baixo / Guitarra</option>
-                </select>
-            </div>
+<section>
 
-            <div >
-                <label for="imagem">Imagem do instrumento: </label>
-                <input type="file" id="imagem" accept="image/*">
-                <img id="preview" style="width: 200px; margin-top: 20px;">
+    <h1>Cadastre um novo instrumento</h1>
+
+    <!-- FORM COM CLASSES DO NOVO LAYOUT -->
+    <form class="formulario-estilizado" id="form">
+
+        <input type="hidden" id="idInstrumento">
+
+        <div class="campo-grupo">
+            <label for="nomeInstrumento">Nome: </label>
+            <input type="text" id="nomeInstrumento" required>
+        </div>
+
+        <div class="campo-grupo">
+            <label for="tipoInstrumento">Tipo:</label>
+            <select id="tipoInstrumento" name="tipoInstrumento">
+                <option value="violao">Violão</option>
+                <option value="baixo-guitarra">Baixo / Guitarra</option>
+            </select>
+        </div>
+
+        <div class="campo-grupo">
+            <label for="imagem">Imagem do instrumento: </label>
+            <input type="file" id="imagem" accept="image/*">
+            <img id="preview" style="width: 200px; margin-top: 20px;">
+        </div>
+
+        <div class="campo-duplo">
+            <div>
+                <label for="preco">Preço:</label>
+                <input type="number" id="preco" class="campo" placeholder="R$0,00" step="0.01" min="1" max="20000" required>
             </div>
+        </div>
 
-            <div class="grid-2">
+        <div class="campo-grupo">
+            <label for="especificacoes">Especificações técnicas</label>
+            <input type="text" id="especificacoes" class="campo" required>
+        </div>
 
-                <div >
-                    <label for="preco">Preço: </label>
-                    <input class="campo" type="number" id="preco" placeholder="R$0,00" step="0.01" min="1" max="20000" required>
-                </div>
-            </div>
+        <div class="campo-grupo">
+            <label for="descricao">Descrição:</label>
+            <textarea id="descricao" name="descricao" required></textarea>
+        </div>
 
-            <div >
-                <label for="especificacoes">Especificações técnicas</label>
-                <input class="campo" type="text" id="especificacoes" required>
-            </div>
+        <button class="btn-formulario" id="btnSubmit" type="button">Cadastrar</button>
 
-            <div class="descricao">
-                <label for="descricao">Descrição: </label>
-                <textarea name="descricao" id="descricao" required></textarea>
-            </div>
+    </form>
 
-            
-            <button class="btn" id="btnSubmit" type="button">cadastrar</button>
-        </form>
-    </section>
-    </main>
-    <footer>
-<div class="container">© 2025 Universo Musical</div>
+</section>
+</main>
+
+<footer>
+    <div class="container">© 2025 Universo Musical</div>
 </footer>
-<script type="module" src="../../dist/main.js" defer></script>
-<script>
-  
-  // Muda o texto do botão conforme modo edição/cadastro
-  document.addEventListener('DOMContentLoaded', function() {
-    const btn = document.getElementById('btnSubmit');
-    const idInput = document.getElementById('idInstrumento');
-    if (!btn || !idInput) return;
-    function atualizarTextoBotao() {
-      btn.textContent = idInput.value ? 'Salvar edição' : 'Cadastrar';
-    }
-    idInput.addEventListener('input', atualizarTextoBotao);
-    atualizarTextoBotao();
-  });
 
-</script>
-</body>
+<script type="module" src="../../dist/main.js" defer></script>
+
+<script>
+  // Muda o texto do botão conforme modo edição/c
+
 </html>
