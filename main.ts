@@ -56,3 +56,34 @@ document.getElementById("btnSubmit")?.addEventListener("click", () => {
   criarInstrumento();
 });
 
+// --- POP-UP ---
+
+const popup = document.getElementById("popupOverlay") as HTMLElement;
+const btnPopup = document.getElementById("btnPopupCadastrar") as HTMLButtonElement;
+
+setTimeout(() => {
+    popup.classList.remove("oculto");
+}, 2000);
+
+btnPopup.addEventListener("click", async () => {
+    const nome = (document.getElementById("p_nome") as HTMLInputElement).value;
+    const cpf = (document.getElementById("p_cpf") as HTMLInputElement).value;
+    const email = (document.getElementById("p_email") as HTMLInputElement).value;
+    const telefone = (document.getElementById("p_tel") as HTMLInputElement).value;
+
+    const dados = { nome, cpf, email, telefone };
+
+    const req = await fetch("http://localhost:3000/cadastro", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(dados)
+    });
+
+    const res = await req.json();
+
+    alert("Cadastro realizado com sucesso!");
+
+    popup.classList.add("oculto");
+});
+
+
