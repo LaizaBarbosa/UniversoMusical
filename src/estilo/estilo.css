@@ -164,9 +164,7 @@ header nav ul li a:hover {
    ==================================== */
 .carousel {
     background-color: var(--cor-fundo-secundario); /* Fundo preto para o carrossel */
-    padding: 20px 0; /* Pode ajustar conforme a necessidade de espaço */
-    position: relative; /* Para posicionar controles de navegação se houver */
-    overflow: hidden; /* Garante que imagens não vazem */
+    width: 100%;
 }
 
 .carousel-slide {
@@ -179,8 +177,10 @@ header nav ul li a:hover {
 }
 
 .carousel-slide img {
-    max-width: 100%;
-    height: auto; /* Mantém proporção */
+    width: 100%;
+    height: 600px;
+    object-fit: cover;
+    object-position: bottom;
     border-radius: 8px; /* Cantos levemente arredondados */
     box-shadow: 0 4px 15px rgba(0, 0, 0, 0.4); /* Sombra sutil */
 }
@@ -289,6 +289,37 @@ header nav ul li a:hover {
 
 #contato .lista-produtos li img:hover {
     filter: grayscale(0%) brightness(100%); /* Colore no hover */
+}
+
+.produtos{
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 3rem;
+    margin: 3rem 0;
+}
+
+.produtos img{
+    width: 100%;
+    height: 200px;
+}
+
+.produto{
+    margin: 20px 0;
+}
+
+.btn-detalhes{
+    background-color: var(--cor-botoes);
+    color: var(--cor-texto-principal);
+    width: 120px;
+    height: 30px;
+    font-size: 18px;
+    border-radius: 6px;
+    margin-top: 10px;
+}
+
+.btn-detalhes:hover{
+    background-color: var(--cor-botoes-hover);
+    cursor: pointer;
 }
 
 /* ====================================

@@ -52,4 +52,7 @@ export async function criarInstrumento() {
   }
 }
 
+document.getElementById("btnSubmit")?.addEventListener("click", () => {
+  criarInstrumento();
+});
 

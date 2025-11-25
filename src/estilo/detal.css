@@ -148,6 +148,12 @@ section {
     margin-bottom: 40px;
 }
 
+
+.especificacoes p{
+    font-size: 20px;
+
+}
+
 /* Para unir as duas sections como um bloco único */
 .info-container {
     margin-bottom: 20px;
@@ -172,14 +178,18 @@ h2, h3 {
 .preco-area {
     margin-top: 15px;
     font-size: 1.1rem;
+    text-align: center;
 }
 
 .preco-label {
     font-weight: bold;
+    font-size: 20px;
 }
 
 .preco-valor {
     margin-left: 6px;
+    font-weight: bold;
+    font-size: 20px;
 }
 
 /* ====== Texto ====== */
@@ -215,6 +225,7 @@ ul {
 .especificacoes ul {
     margin-bottom: 20px;
     line-height: 1.5;
+    font-size: 20px;
 }
 
 /* Remover o comportamento estranho do <ul> que tinha <p> dentro */
@@ -334,4 +345,28 @@ footer { /* Este é o seu footer com o © 2025 */
     .footer-col {
         text-align: center; /* Centraliza texto das colunas */
     }
+}
+
+.btn-header, .btn{
+    background-color: var(--cor-botoes);
+    color: var(--cor-texto-principal);
+    border: 1px solid var(--cor-destaque-sutil);
+    border-left: none; /* Remove borda da esquerda para unir com input */
+    padding: 10px 15px;
+    border-radius: 0 5px 5px 0; /* Cantos arredondados na direita */
+    cursor: pointer;
+    font-size: 1.1rem;
+    transition: background-color 0.3s ease;
+}
+
+.btn-danger{
+    background-color: #8a0404;
+    color: var(--cor-texto-principal);
+    border: 1px solid var(--cor-destaque-sutil);
+    border-left: none; /* Remove borda da esquerda para unir com input */
+    padding: 10px 15px;
+    border-radius: 0 5px 5px 0; /* Cantos arredondados na direita */
+    cursor: pointer;
+    font-size: 1.1rem;
+    transition: background-color 0.3s ease;
 }

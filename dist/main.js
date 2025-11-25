@@ -7,6 +7,7 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
         step((generator = generator.apply(thisArg, _arguments || [])).next());
     });
 };
+var _a;
 export function getInstrumentos() {
     return __awaiter(this, void 0, void 0, function* () {
         const res = yield fetch("http://localhost:3000/instrumentos");
@@ -59,3 +60,6 @@ export function criarInstrumento() {
         }
     });
 }
+(_a = document.getElementById("btnSubmit")) === null || _a === void 0 ? void 0 : _a.addEventListener("click", () => {
+    criarInstrumento();
+});
