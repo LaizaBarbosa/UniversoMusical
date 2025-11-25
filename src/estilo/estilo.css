@@ -424,4 +424,56 @@ footer { /* Este é o seu footer com o © 2025 */
     .footer-col {
         text-align: center; /* Centraliza texto das colunas */
     }
+
+}
+
+
+/* ---- POP UP -----*/
+
+.popup-overlay {
+    position: fixed;
+    inset: 0;
+    background: rgba(0,0,0,0.6);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 9999;
+}
+
+.popup-container {
+    background: #fff;
+    padding: 25px;
+    width: 330px;
+    border-radius: 12px;
+    box-shadow: 0 0 25px rgba(0,0,0,0.3);
+    display: flex;
+    flex-direction: column;
+}
+
+.popup-container h2 {
+    margin: 0 0 15px 0;
+    text-align: center;
+    font-size: 22px;
+}
+
+.popup-container input {
+    padding: 10px;
+    margin-bottom: 10px;
+    width: 100%;
+    border: 1px solid #aaa;
+    border-radius: 6px;
+}
+
+.popup-container button {
+    padding: 12px;
+    background: #000;
+    color: #fff;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    margin-top: 5px;
+}
+
+.oculto {
+    display: none;
 }
