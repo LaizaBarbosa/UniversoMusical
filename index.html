@@ -1,214 +1,345 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Home | Universo Musical</title> 
-<link rel="stylesheet" href="./src/estilo/estilo.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Home | Universo Musical</title> 
+    <link rel="stylesheet" href="./src/estilo/estilo.css">
+    
+    <style>
+        /* CSS DO POP-UP */
+        .popup-overlay {
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background-color: rgba(0, 0, 0, 0.5);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 2000;
+            opacity: 1;
+            transition: opacity 0.3s;
+        }
+        
+        .oculto {
+            display: none;
+            opacity: 0;
+            pointer-events: none;
+        }
+
+        .popup-container {
+            background-color: white;
+            padding: 25px;
+            border-radius: 10px;
+            width: 300px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.3);
+            position: relative;
+            font-family: Arial, sans-serif;
+        }
+
+        .popup-container h2 { margin-top: 0; color: #333; text-align: center; }
+        .popup-container label { display: block; margin-top: 10px; color: #666; font-size: 14px; }
+        .popup-container input { width: 100%; padding: 8px; margin-top: 5px; border: 1px solid #ccc; border-radius: 4px; box-sizing: border-box;}
+        
+        .popup-container button#btnPopupCadastrar {
+            width: 100%; margin-top: 20px; padding: 10px;
+            background-color: #28a745; color: white; border: none; border-radius: 4px;
+            font-size: 16px; cursor: pointer;
+        }
+        .popup-container button#btnPopupCadastrar:hover { background-color: #218838; }
+
+        .btn-fechar {
+            position: absolute; top: 10px; right: 15px;
+            font-size: 24px; cursor: pointer; color: #999;
+        }
+        .btn-fechar:hover { color: #333; }
+
+        /* Estilos adicionais para layout */
+        .produtos { display: flex; flex-wrap: wrap; gap: 20px; justify-content: center; margin-top: 20px; }
+        .produto { border: 1px solid #ddd; padding: 15px; width: 200px; text-align: center; border-radius: 8px; }
+        .produto img { max-width: 100%; height: auto; }
+        .lista-icones { display: flex; gap: 20px; list-style: none; justify-content: center; }
+        .lista-produtos { display: flex; gap: 20px; list-style: none; overflow-x: auto; }
+    </style>
 </head>
 <body>
 
 <header>
-<div class="container topo">
-<h1> <img src="src\Imagens\logos\Umiverso.png" width= 100px height= 100px ></h1>
- <div class="search-container"> <!--Barra de busca-->
-    <input type="search" name="q" placeholder="Buscar...">
-    <button type="submit">🔍</button>
-  </div>
-<nav aria-label="Principal">
-    
+    <div class="container topo">
+        <h1><img src="src\Imagens\logos\Umiverso.png" width="100px" height="100px" alt="Logo"></h1>
+        
+        <div class="search-container"> <input type="search" name="q" placeholder="Buscar...">
+            <button type="submit">🔍</button>
+        </div>
 
-<ul>
-<li><a href="./src/paginas/cadastroInstrumento.html">Cadastrar</a></li>
-
-</ul>
-</nav>
-</div>
+        <nav aria-label="Principal">
+            <ul>
+                <li><a href="./src/paginas/cadastroInstrumento.html">Cadastrar</a></li>
+                <li><a href="./src/paginas/usuarios.html">Usuários cadastrados</a></li>
+                <li><a href="#" id="btnAbrirPopup" style="color: #ff9900; font-weight: bold;">Cadastro Rápido</a></li>
+            </ul>
+        </nav>
+    </div>
 </header>
 
-<section class="carousel"> <!-- Section 2: Banner principal -->
-  <!-- <div class="carousel-slide active">
-    <img src="./src/Imagens/banner1.jpg" alt="Banner 1">
-  </div> -->
-  <div class="carousel-slide ">
-    <img src="./src/Imagens/banner2.jpg" alt="Banner 2">
-  </div>
-  <div class="carousel-slide active">
-    <img src="./src/Imagens/banner3.jpg" alt="Banner 3">
-  </div>
-  <div class="carousel-slide">
-    <img src="./src/Imagens/banner4.jpg" alt="Banner 3">
-  </div>
+<section class="carousel"> 
+    <div class="carousel-slide ">
+        <img src="./src/Imagens/banner2.jpg" alt="Banner 2">
+    </div>
+    <div class="carousel-slide active">
+        <img src="./src/Imagens/banner3.jpg" alt="Banner 3">
+    </div>
+    <div class="carousel-slide">
+        <img src="./src/Imagens/banner4.jpg" alt="Banner 3">
+    </div>
 </section>
 
 <main class="container">
-  <section id="destaque"> <!-- Section 1 - tipos de Instrumentos - cordas - Bateria e Percussão - Sopro - Piano/Teclado - Audio e Gravaçao -->
-  <ul class="lista-icones">
-  
-     <li>  
-      <a href="#">Violão</a>
-     </li>
-  
-     <li> 
-      <a href="#">Guitarra e Baixo</a>
-     </li>    
-  </ul>
-  </section>
+    <section id="destaque"> 
+        <ul class="lista-icones">
+            <li><a href="#">Violão</a></li>
+            <li><a href="#">Guitarra e Baixo</a></li>    
+        </ul>
+    </section>
 
+    <section id="servicos"> 
+        <ul class="lista-icones">
+            <li> 
+                <img src="./src/Imagens/cartao.png" width="50px" height="50px"> 
+                <div class="texto"><h4> Parcelamento em 12x Sem Juros</h4></div>
+            </li>
+            <li> 
+                <img src="./src/Imagens/desconto.png" width="50px" height="50px">
+                <div class="texto"><h4> 10% de desconto</h4><p> Pagamento via PIX</p></div>
+            </li>
+            <li> 
+                <img src="./src/Imagens/caixa.png" width="50px" height="50px">
+                <div class="texto"><h4> Frete gratis</h4><p>Compras acima de R$500,00</p></div>
+            </li>
+            <li> 
+                <img src="./src/Imagens/carrinho.png" width="50px" height="50px">
+                <div class="texto"> <h4> Compra segura</h4><p>Máxima proteção dos dados</p></div>
+            </li>
+        </ul>
+    </section>
 
+    <div id="produtos-container" class="produtos">
+        <div class="loading">Carregando produtos...</div>
+    </div>
 
+    <script>
+        // MUDANÇA IMPORTANTE: Usar 127.0.0.1 em vez de localhost
+        const API_URL = 'http://127.0.0.1:3000';
 
-<section id="servicos"> <!-- Section 3: incones com informações do tipo parcelamento, desconto, frete gratis, compra segura -->
- 
-  <ul class="lista-icones">
-<li> <img src="./src/Imagens/cartao.png" width= 50px height= 50px> <div class="texto">
-  </div><h4> Parcelamento em 12x Sem Juros</h4></div></li>
+        async function carregarProdutos() {
+            const container = document.getElementById('produtos-container');
+            try {
+                const response = await fetch(`${API_URL}/instrumentos`);
+                if (!response.ok) { throw new Error('Erro ao carregar instrumentos'); }
+                const instrumentos = await response.json();
+                container.innerHTML = '';
 
-<li> <img src="./src/Imagens/desconto.png" width= 50px height= 50px><div class="texto"><h4> 10% de desconto</h4>
-  <p> Pagamento via PIX</p>
-</div></li>
+                instrumentos.forEach(item => {
+                    const divProduto = document.createElement('div');
+                    divProduto.className = 'produto';
+                    const imgSrc = item.imagem && item.imagem.length ? item.imagem[0] : '';
 
-<li> <img src="./src/Imagens/caixa.png" width= 50px height= 50px>
-  <div class="texto"><h4> Frete gratis</h4><p>Compras acima de R$500,00</p>
-  </div>
-</li>
-<li> <img src="./src/Imagens/carrinho.png" width= 50px height= 50px>
-  <div class="texto"> <h4> Compra segura</h4><p>Máxima proteção dos dados</p>
-  </div>
-</li>
-</ul>
-
- <main>
-        <div id="produtos-container" class="produtos">
-            <div class="loading">Carregando produtos...</div>
-        </div>
-    </main>
-
-  <script>
-    // URL da nossa API (servidor definido em descr.ts)
-    const API_URL = 'http://localhost:3000';
-
-    // Função para carregar os produtos (instrumentos)
-    async function carregarProdutos() {
-      const container = document.getElementById('produtos-container');
-
-      try {
-        // Faz a requisição para a API correta de instrumentos
-        const response = await fetch(`${API_URL}/instrumentos`);
-
-        if (!response.ok) {
-          throw new Error('Erro ao carregar instrumentos');
+                    divProduto.innerHTML = `
+                        <img src="${imgSrc}" alt="${item.nome}">
+                        <h3>${item.nome}</h3>
+                        <p><strong>Tipo:</strong> ${item.tipo}</p>
+                        <p class="preco">R$ ${Number(item.preco).toFixed(2)}</p>
+                        <button class="btn-detalhes" onclick="verDetalhes(${item.idInstrumento})">
+                            Ver Detalhes
+                        </button>
+                    `;
+                    container.appendChild(divProduto);
+                });
+            } catch (error) {
+                console.error('Erro:', error);
+                container.innerHTML = `
+                    <div class="erro">
+                        ❌ Erro ao carregar instrumentos<br>
+                        <small>Verifique se o seu servidor TypeScript está rodando!</small>
+                    </div>
+                `;
+            }
         }
 
-        const instrumentos = await response.json();
+        function verDetalhes(idInstrumento) {
+            localStorage.setItem('produtoId', idInstrumento);
+            window.location.href = './src/paginas/detalhesInstrumento.html';
+        }
 
-        // Limpa o container
-        container.innerHTML = '';
+        carregarProdutos();
+    </script>
 
-        // Adiciona cada instrumento na página
-        instrumentos.forEach(item => {
-          const divProduto = document.createElement('div');
-          divProduto.className = 'produto';
+    <section id="contato"> 
+        <h2>Marcas Parceiras</h2>
+        <ul class="lista-produtos">
+            <li> <img src="./src/Imagens/logos/fender.jpg" alt="fender" width="150px" height="150px"> </li>
+            <li> <img src="./src/Imagens/logos/Gibson.png" alt="Gibson" width="150px" height="150px"> </li>
+            <li> <img src="./src/Imagens/logos/mapex.png" alt="mapex" width="150px" height="150px"> </li>
+            <li> <img src="./src/Imagens/logos/yamaha.png" alt="yamaha"width="150px" height="150px"> </li>
+            <li> <img src="./src/Imagens/logos/gope.png" alt="Gope"width="150px" height="150px"> </li>
+            <li> <img src="./src/Imagens/logos/Tama Drums.jpg" alt="Tama" width="150px" height="150px"> </li>
+            <li> <img src="./src/Imagens/logos/godin2.jpg" alt="godin" width="150px" height="150px"> </li>
+            <li> <img src="./src/Imagens/logos/latin.png" alt="latin" width="150px" height="150px"> </li>
+        </ul>
+    </section>
 
-          // usa diretamente o caminho vindo da API (ex: 'src/Imagens/...')
-          const imgSrc = item.imagem && item.imagem.length ? item.imagem[0] : '';
+    <section class="footer">
+        <div class="footer-logo">
+            <img src="./src/Imagens/logos/Umiverso.png" alt="Logo Universo Musical">
+        </div>
 
-          divProduto.innerHTML = `
-            <img src="${imgSrc}" alt="${item.nome}">
-            <h3>${item.nome}</h3>
-            <p><strong>Tipo:</strong> ${item.tipo}</p>
-            <p class="preco">R$ ${Number(item.preco).toFixed(2)}</p>
-            <button class="btn-detalhes" onclick="verDetalhes(${item.idInstrumento})">
-              Ver Detalhes
-            </button>
-          `;
+        <div class="footer-content">
+            <div class="footer-col">
+                <h4>Institucional</h4>
+                <ul>
+                    <li><a href="#">Nossa História</a></li>
+                    <li><a href="#">Nossas Lojas</a></li>
+                    <li><a href="#">Projetos Sociais</a></li>
+                    <li><a href="#">Trabalhe Conosco</a></li>
+                </ul>
+            </div>
 
-          container.appendChild(divProduto);
-        });
+            <div class="footer-col">
+                <h4>Atendimento</h4>
+                <ul>
+                    <li><span>📧</span> sac@universomusical.com.br</li>
+                    <li><span>📞</span> (11) 5094-4776</li>
+                    <li><span>📱</span> (11) 99496-8050</li>
+                </ul>
+            </div>
 
-      } catch (error) {
-        console.error('Erro:', error);
-        container.innerHTML = `
-          <div class="erro">
-            ❌ Erro ao carregar instrumentos<br>
-            <small>Verifique se a API (descr.ts) está rodando na porta 3000</small>
-          </div>
-        `;
-      }
-    }
-
-    // Função para ver detalhes do produto
-    function verDetalhes(idInstrumento) {
-      // Salva o ID no localStorage e vai para a página de detalhes existente
-      localStorage.setItem('produtoId', idInstrumento);
-      window.location.href = './src/paginas/detalhesInstrumento.html';
-    }
-
-    // Carrega os produtos quando a página abre
-    carregarProdutos();
-  </script>
-
-<section id="contato"> <!-- Section 5: Marcas parceiras-->
-<h2>Marcas Parceiras</h2>
-  <ul class="lista-produtos">
-    <li> <img src="./src/Imagens/logos/fender.jpg" alt="fender" width= 150px height= 150px>   </li>
-    <li> <img src="./src/Imagens/logos/Gibson.png" alt="Gibson" width= 150px height= 150px>   </li>
-    <li> <img src="./src/Imagens/logos/mapex.png" alt="mapex" width= 150px height= 150px>   </li>
-    <li> <img src="./src/Imagens/logos/yamaha.png" alt="yamaha"width= 150px height= 150px>   </li>
-    <li> <img src="./src/Imagens/logos/gope.png" alt="Gope"width= 150px height= 150px>   </li>
-    <li> <img src="./src/Imagens/logos/Tama Drums.jpg" alt="Tama" width= 150px height= 150px>   </li>
-    <li> <img src="./src/Imagens/logos/godin2.jpg" alt="godin" width= 150px height= 150px>   </li>
-    <li> <img src="./src/Imagens/logos/latin.png" alt="latin" width= 150px height= 150px>   </li>
-  </ul>
-</section>
-
-<section class="footer">
-  <div class="footer-logo">
-    <img src="./src/Imagens/logos/Umiverso.png" alt="Logo Universo Musical">
-  </div>
-
-  <div class="footer-content">
-    <div class="footer-col">
-      <h4>Institucional</h4>
-      <ul>
-        <li><a href="#">Nossa História</a></li>
-        <li><a href="#">Nossas Lojas</a></li>
-        <li><a href="#">Projetos Sociais</a></li>
-        <li><a href="#">Trabalhe Conosco</a></li>
-      </ul>
-    </div>
-
-    <div class="footer-col">
-      <h4>Atendimento</h4>
-      <ul>
-        <li><span>📧</span> sac@universomusical.com.br</li>
-        <li><span>📞</span> (11) 5094-4776</li>
-        <li><span>📱</span> (11) 99496-8050</li>
-      </ul>
-    </div>
-
-    <div class="footer-col">
-      <h4>Dúvidas</h4>
-      <ul>
-        <li><a href="#">Formas de Pagamento</a></li>
-        <li><a href="#">Processo de Entrega</a></li>
-        <li><a href="#">Trocas e Devoluções</a></li>
-        <li><a href="#">Política de Privacidade</a></li>
-        <li><a href="#">Dúvidas Frequentes</a></li>
-        <li><a href="#">Regras do Site</a></li>
-      </ul>
-    </div>
-  </div>
-</section>
-
+            <div class="footer-col">
+                <h4>Dúvidas</h4>
+                <ul>
+                    <li><a href="#">Formas de Pagamento</a></li>
+                    <li><a href="#">Processo de Entrega</a></li>
+                    <li><a href="#">Trocas e Devoluções</a></li>
+                    <li><a href="#">Política de Privacidade</a></li>
+                    <li><a href="#">Dúvidas Frequentes</a></li>
+                    <li><a href="#">Regras do Site</a></li>
+                </ul>
+            </div>
+        </div>
+    </section>
 </main>
 
-
-
 <footer>
-<div class="container">© 2025 Universo Musical</div>
+    <div class="container">© 2025 Universo Musical</div>
 </footer>
 
 <script src="../../dist/main.js"></script>
+
+<div id="popupOverlay" class="popup-overlay oculto">
+    <div class="popup-container">
+        <span class="btn-fechar" id="btnFecharPopup">&times;</span>
+
+        <h2>Cadastro rápido</h2>
+
+        <label for="p_nome">Nome</label>
+        <input id="p_nome" type="text" required>
+
+        <label for="p_cpf">CPF</label>
+        <input id="p_cpf" type="text" placeholder="000.000.000-00" required>
+
+        <label for="p_email">E-mail</label>
+        <input id="p_email" type="email" required>
+
+        <label for="p_tel">Telefone</label>
+        <input id="p_tel" type="tel" required>
+
+        <button id="btnPopupCadastrar">Enviar</button>
+    </div>
+</div>
+
+<script>
+    // Usamos 'DOMContentLoaded' para garantir que o HTML carregou
+    document.addEventListener('DOMContentLoaded', function() {
+        
+        // MUDANÇA IMPORTANTE: Usar 127.0.0.1 em vez de localhost
+        const API_URL_USUARIOS = 'http://127.0.0.1:3000'; 
+
+        // 2. Elementos do Pop-up
+        const btnAbrir = document.getElementById('btnAbrirPopup');
+        const btnFechar = document.getElementById('btnFecharPopup');
+        const overlay = document.getElementById('popupOverlay');
+        const btnCadastrar = document.getElementById('btnPopupCadastrar');
+
+        // --- LÓGICA DE ABRIR/FECHAR ---
+        if(btnAbrir) {
+            btnAbrir.addEventListener('click', function(e) {
+                e.preventDefault(); 
+                overlay.classList.remove('oculto');
+            });
+        }
+
+        if(btnFechar) {
+            btnFechar.addEventListener('click', () => overlay.classList.add('oculto'));
+        }
+
+        overlay.addEventListener('click', function(event) {
+            if (event.target === overlay) overlay.classList.add('oculto');
+        });
+
+        // --- LÓGICA DE SALVAR (CADASTRO) ---
+        if(btnCadastrar) {
+            btnCadastrar.addEventListener('click', async function() {
+                // A. Capturar os valores
+                const nome = document.getElementById('p_nome').value;
+                const cpf = document.getElementById('p_cpf').value;
+                const email = document.getElementById('p_email').value;
+                const telefone = document.getElementById('p_tel').value;
+
+                // B. Validação simples
+                if (!nome || !cpf || !email || !telefone) {
+                    alert("Por favor, preencha todos os campos!");
+                    return;
+                }
+
+                // C. Criar o objeto do usuário
+                const novoUsuario = {
+                    nome: nome,
+                    cpf: cpf,
+                    email: email,
+                    telefone: telefone,
+                    dataCadastro: new Date().toLocaleDateString() 
+                };
+
+                try {
+                    // D. Enviar para a API (POST)
+                    const resposta = await fetch(`${API_URL_USUARIOS}/usuarios`, {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json'
+                        },
+                        body: JSON.stringify(novoUsuario)
+                    });
+
+                    if (resposta.ok) {
+                        alert("Cadastro realizado com sucesso!");
+                        
+                        // Limpar formulário e fechar
+                        document.getElementById('p_nome').value = '';
+                        document.getElementById('p_cpf').value = '';
+                        document.getElementById('p_email').value = '';
+                        document.getElementById('p_tel').value = '';
+                        overlay.classList.add('oculto');
+                    } else {
+                        // Se der erro, tenta ler a mensagem do backend
+                        const erroMsg = await resposta.json();
+                        alert("Erro ao salvar: " + (erroMsg.erro || "Verifique a API"));
+                    }
+                } catch (erro) {
+                    console.error(erro);
+                    alert("Erro de conexão. Verifique se o servidor TypeScript está rodando em 127.0.0.1:3000");
+                }
+            });
+        }
+    });
+</script>
+
 </body>
 </html>
