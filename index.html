@@ -259,8 +259,8 @@
     // Usamos 'DOMContentLoaded' para garantir que o HTML carregou
     document.addEventListener('DOMContentLoaded', function() {
         
-        // MUDANÇA IMPORTANTE: Usar 127.0.0.1 em vez de localhost
-        const API_URL_USUARIOS = 'http://127.0.0.1:3000'; 
+        
+        const API_URL_USUARIOS = 'http://localhost:3000'; 
 
         // 2. Elementos do Pop-up
         const btnAbrir = document.getElementById('btnAbrirPopup');
@@ -310,7 +310,7 @@
 
                 try {
                     // D. Enviar para a API (POST)
-                    const resposta = await fetch(`${API_URL_USUARIOS}/usuarios`, {
+                    const resposta = await fetch(`${API_URL_USUARIOS}/cadastro`, {
                         method: 'POST',
                         headers: {
                             'Content-Type': 'application/json'
@@ -320,7 +320,7 @@
 
                     if (resposta.ok) {
                         alert("Cadastro realizado com sucesso!");
-                        
+                        console.log(novoUsuario);
                         // Limpar formulário e fechar
                         document.getElementById('p_nome').value = '';
                         document.getElementById('p_cpf').value = '';

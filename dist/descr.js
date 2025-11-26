@@ -201,6 +201,14 @@ const instrumentos = [
         ]
     },
 ];
+const usuarios = [
+    {
+        nome: 'Eliseu',
+        cpf: 1234556,
+        email: 'eliseu@teste.com',
+        telefone: 111234567890
+    }
+];
 // API
 app.get("/", (req, res) => {
     res.json({
@@ -273,6 +281,24 @@ app.get("/instrumentos/tipo/:tipo", (req, res) => {
     const tipo = req.params.tipo;
     const instrumentosFiltrados = instrumentos.filter(i => i.tipo.toLowerCase() === tipo.toLowerCase());
     res.json(instrumentosFiltrados);
+});
+// Cadastro de usuário
+app.post('/cadastro', (req, res) => {
+    const body = req.body;
+    if (!body.nome || body.cpf == null || !body.email || body.telefone == null) {
+        return res.status(400).json({ erro: 'Dados incompletos' });
+    }
+    const novoUsuario = {
+        nome: body.nome,
+        cpf: Number(body.cpf),
+        email: body.email,
+        telefone: Number(body.telefone)
+    };
+    usuarios.push(novoUsuario);
+    res.status(201).json(novoUsuario);
+});
+app.get("/usuarios", (req, res) => {
+    res.json(usuarios);
 });
 // Servidor
 const PORT = 3000;

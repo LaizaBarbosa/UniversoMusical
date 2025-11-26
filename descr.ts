@@ -16,6 +16,13 @@ interface Instrumento {
     especificacoes: string;     
 }
 
+interface usuario{
+    nome: string;
+    cpf:number;
+    email: string;
+    telefone:number
+}
+
 // Lista de instrumentos detalhes
 const instrumentos: Instrumento[] = [
     {
@@ -228,6 +235,16 @@ const instrumentos: Instrumento[] = [
         ]
     },
 ]
+
+const usuarios: usuario[]= [
+    {
+        nome: 'Eliseu',
+        cpf: 1234556,
+        email: 'eliseu@teste.com',
+        telefone: 111234567890
+    }
+];
+
   // API
 app.get("/", (req: Request, res: Response) => {
     res.json({ 
@@ -315,6 +332,29 @@ app.get("/instrumentos/tipo/:tipo", (req: Request, res: Response) => {
     );
     
     res.json(instrumentosFiltrados);
+});
+
+// Cadastro de usuário
+app.post('/cadastro', (req: Request, res: Response) => {
+    const body = req.body as Partial<usuario>;
+
+    if (!body.nome || body.cpf == null || !body.email || body.telefone == null) {
+        return res.status(400).json({ erro: 'Dados incompletos' });
+    }
+
+    const novoUsuario: usuario = {
+        nome: body.nome as string,
+        cpf: Number(body.cpf),
+        email: body.email as string,
+        telefone: Number(body.telefone)
+    };
+
+    usuarios.push(novoUsuario);
+    res.status(201).json(novoUsuario);
+});
+
+app.get("/usuarios", (req: Request, res: Response) => {
+    res.json(usuarios);
 });
 
 // Servidor
