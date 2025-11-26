@@ -7,7 +7,6 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
         step((generator = generator.apply(thisArg, _arguments || [])).next());
     });
 };
-var _a;
 export function getInstrumentos() {
     return __awaiter(this, void 0, void 0, function* () {
         const res = yield fetch("http://localhost:3000/instrumentos");
@@ -60,16 +59,13 @@ export function criarInstrumento() {
         }
     });
 }
-(_a = document.getElementById("btnSubmit")) === null || _a === void 0 ? void 0 : _a.addEventListener("click", () => {
-    criarInstrumento();
-});
 // --- POP-UP ---
 const popup = document.getElementById("popupOverlay");
 const btnPopup = document.getElementById("btnPopupCadastrar");
 setTimeout(() => {
     popup.classList.remove("oculto");
 }, 2000);
-btnPopup.addEventListener("click", () => __awaiter(void 0, void 0, void 0, function* () {
+btnPopup === null || btnPopup === void 0 ? void 0 : btnPopup.addEventListener("click", () => __awaiter(void 0, void 0, void 0, function* () {
     const nome = document.getElementById("p_nome").value;
     const cpf = document.getElementById("p_cpf").value;
     const email = document.getElementById("p_email").value;
@@ -85,3 +81,9 @@ btnPopup.addEventListener("click", () => __awaiter(void 0, void 0, void 0, funct
     alert("Cadastro realizado com sucesso!");
     popup.classList.add("oculto");
 }));
+document.addEventListener("DOMContentLoaded", () => {
+    var _a;
+    (_a = document.getElementById("btnSubmit")) === null || _a === void 0 ? void 0 : _a.addEventListener("click", () => {
+        criarInstrumento();
+    });
+});

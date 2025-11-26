@@ -110,6 +110,8 @@ header nav ul {
     list-style: none;
     margin: 0;
     padding: 0;
+    display: flex;
+    gap: 10px;
 }
 
 header nav ul li a {
@@ -480,4 +482,30 @@ footer { /* Este é o seu footer com o © 2025 */
 
 .oculto {
     display: none;
+}
+
+.usuarios{
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    flex-wrap: wrap;
+}
+
+
+.usuario{
+    display: flex;
+    background-color: var(--cor-destaque-sutil);
+    border-radius: 8px;
+    padding: 6px 20px;
+    margin: 10px;
+    width: 50%;
+
+}
+
+.usuario p{
+    margin: 0 20px;
+}
+
+.titulo-users{
+    text-align: center;
 }

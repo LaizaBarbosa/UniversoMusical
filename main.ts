@@ -51,11 +51,6 @@ export async function criarInstrumento() {
     alert("Falha ao cadastrar instrumento");
   }
 }
-
-document.getElementById("btnSubmit")?.addEventListener("click", () => {
-  criarInstrumento();
-});
-
 // --- POP-UP ---
 
 const popup = document.getElementById("popupOverlay") as HTMLElement;
@@ -66,7 +61,7 @@ setTimeout(() => {
 }, 2000);
 
 
-btnPopup.addEventListener("click", async() => {
+btnPopup?.addEventListener("click", async() => {
     const nome = (document.getElementById("p_nome") as HTMLInputElement).value;
     const cpf = (document.getElementById("p_cpf") as HTMLInputElement).value;
     const email = (document.getElementById("p_email") as HTMLInputElement).value;
@@ -88,3 +83,8 @@ btnPopup.addEventListener("click", async() => {
 });
 
 
+document.addEventListener("DOMContentLoaded", () => {
+  document.getElementById("btnSubmit")?.addEventListener("click", () => {
+    criarInstrumento();
+  });
+});

@@ -352,6 +352,7 @@ app.post('/cadastro', (req: Request, res: Response) => {
 
     usuarios.push(novoUsuario);
     res.status(201).json(novoUsuario);
+    console.log(usuarios);
 });
 
 app.get("/usuarios", (req: Request, res: Response) => {

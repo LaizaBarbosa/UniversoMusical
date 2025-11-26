@@ -1,34 +1,37 @@
 <!DOCTYPE html>
 <html lang="pt-br">
+
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Usuários cadastrados</title>
-    <link rel="stylesheet" href="../estilo/estilo.css">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Usuários cadastrados</title>
+  <link rel="stylesheet" href="../estilo/estilo.css">
 </head>
+
 <body>
-    <header>
-<div class="container topo">
-<h1> <img src="../Imagens/logos/Umiverso.png" width= 100px height= 100px ></h1>
- <div class="search-container"> <!--Barra de busca-->
-    <input type="search" name="q" placeholder="Buscar...">
-    <button type="submit">🔍</button>
-  </div>
-<nav aria-label="Principal">
-    
+  <header>
+    <div class="container topo">
+      <h1> <img src="../Imagens/logos/Umiverso.png" width=100px height=100px></h1>
+      <div class="search-container"> <!--Barra de busca-->
+        <input type="search" name="q" placeholder="Buscar...">
+        <button type="submit">🔍</button>
+      </div>
+      <nav aria-label="Principal">
 
-<ul>
-<li><a href="./src/paginas/cadastroInstrumento.html">Cadastrar</a></li>
 
-</ul>
-</nav>
-</div>
-</header>
-     <main>
-        <div id="usuarios-container" class="usuarios">
-            <div class="loading">Carregando usuarios...</div>
-        </div>
-    </main>
+        <ul>
+          <li><a href="./cadastroInstrumento.html">Cadastrar</a></li>
+          <li><a href="../../index.html">Home</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+  <main>
+    <h1 class="titulo-users">Usuários cadastrados</h2>
+    <div id="usuarios-container" class="usuarios">
+      <div class="loading">Carregando usuarios...</div>
+    </div>
+  </main>
 
   <script>
     // URL da nossa API (servidor definido em descr.ts)
@@ -52,7 +55,7 @@
           const divUsuario = document.createElement('div');
           divUsuario.className = 'usuario';
 
-          
+
 
           divUsuario.innerHTML = `
             
@@ -80,4 +83,5 @@
     carregarUsuarios();
   </script>
 </body>
+
 </html>
