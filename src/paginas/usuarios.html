@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Usuários cadastrados</title>
+    <link rel="stylesheet" href="../estilo/estilo.css">
+</head>
+<body>
+    <header>
+<div class="container topo">
+<h1> <img src="../Imagens/logos/Umiverso.png" width= 100px height= 100px ></h1>
+ <div class="search-container"> <!--Barra de busca-->
+    <input type="search" name="q" placeholder="Buscar...">
+    <button type="submit">🔍</button>
+  </div>
+<nav aria-label="Principal">
+    
+
+<ul>
+<li><a href="./src/paginas/cadastroInstrumento.html">Cadastrar</a></li>
+
+</ul>
+</nav>
+</div>
+</header>
+     <main>
+        <div id="usuarios-container" class="usuarios">
+            <div class="loading">Carregando usuarios...</div>
+        </div>
+    </main>
+
+  <script>
+    // URL da nossa API (servidor definido em descr.ts)
+    const API_URL = 'http://localhost:3000';
+
+    async function carregarUsuarios() {
+      const container = document.getElementById('usuarios-container');
+
+      try {
+        const response = await fetch(`${API_URL}/usuarios`);
+
+        if (!response.ok) {
+          throw new Error('Erro ao carregar usuarios');
+        }
+
+        const usuarios = await response.json();
+
+        container.innerHTML = '';
+
+        usuarios.forEach(item => {
+          const divUsuario = document.createElement('div');
+          divUsuario.className = 'usuario';
+
+          
+
+          divUsuario.innerHTML = `
+            
+            <p><strong>Nome: </strong> ${item.nome} </p>
+            <p><strong>CPF: </strong> ${item.cpf}</p>
+            <p><strong>Telefone: </strong> ${item.telefone}</p>
+            <p><strong>Email: </strong> ${item.email}</p>
+          `;
+
+          container.appendChild(divUsuario);
+        });
+
+      } catch (error) {
+        console.error('Erro:', error);
+        container.innerHTML = `
+          <div class="erro">
+            ❌ Erro ao carregar instrumentos<br>
+            <small>Verifique se a API (descr.ts) está rodando na porta 3000</small>
+          </div>
+        `;
+      }
+    }
+
+
+    carregarUsuarios();
+  </script>
+</body>
+</html>

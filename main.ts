@@ -65,7 +65,8 @@ setTimeout(() => {
     popup.classList.remove("oculto");
 }, 2000);
 
-btnPopup.addEventListener("click", async () => {
+
+btnPopup.addEventListener("click", async() => {
     const nome = (document.getElementById("p_nome") as HTMLInputElement).value;
     const cpf = (document.getElementById("p_cpf") as HTMLInputElement).value;
     const email = (document.getElementById("p_email") as HTMLInputElement).value;
@@ -80,7 +81,7 @@ btnPopup.addEventListener("click", async () => {
     });
 
     const res = await req.json();
-
+    console.log(res);
     alert("Cadastro realizado com sucesso!");
 
     popup.classList.add("oculto");

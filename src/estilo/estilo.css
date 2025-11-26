@@ -474,6 +474,10 @@ footer { /* Este é o seu footer com o © 2025 */
     margin-top: 5px;
 }
 
+.popup-overlay label, h2{
+    color: var(--cor-fundo-secundario)
+}
+
 .oculto {
     display: none;
 }

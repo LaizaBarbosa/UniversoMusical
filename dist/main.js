@@ -63,3 +63,25 @@ export function criarInstrumento() {
 (_a = document.getElementById("btnSubmit")) === null || _a === void 0 ? void 0 : _a.addEventListener("click", () => {
     criarInstrumento();
 });
+// --- POP-UP ---
+const popup = document.getElementById("popupOverlay");
+const btnPopup = document.getElementById("btnPopupCadastrar");
+setTimeout(() => {
+    popup.classList.remove("oculto");
+}, 2000);
+btnPopup.addEventListener("click", () => __awaiter(void 0, void 0, void 0, function* () {
+    const nome = document.getElementById("p_nome").value;
+    const cpf = document.getElementById("p_cpf").value;
+    const email = document.getElementById("p_email").value;
+    const telefone = document.getElementById("p_tel").value;
+    const dados = { nome, cpf, email, telefone };
+    const req = yield fetch("http://localhost:3000/cadastro", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(dados)
+    });
+    const res = yield req.json();
+    console.log(res);
+    alert("Cadastro realizado com sucesso!");
+    popup.classList.add("oculto");
+}));
